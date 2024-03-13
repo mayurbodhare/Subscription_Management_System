@@ -37,4 +37,28 @@ public class UserService {
 		}
 		return userVO;
 	}
+
+	public UserVO login(UserDTO userDTO) {
+		UserVO userVO = new UserVO(null, null, null);
+		if(userDAO.emailExists(userDTO.getEmail())) {
+			UserEntity userEntity = userDAO.getUser(userDTO.getEmail());
+			String dbHashedPassword = userEntity.getPassword();
+			String uiPassword = userDTO.getPassword();
+			if(passwordEncoder.matches(uiPassword, dbHashedPassword)) {
+				userVO.setUserDTO(mapper.map(userEntity, UserDTO.class));
+				userVO.setMessage("Login Successful");
+				userVO.setStatus(1);
+			}
+			else {
+				userVO.setMessage("Incorrect Password. Please try again");
+				userVO.setStatus(0);
+			}
+			
+		}
+		else {
+			userVO.setMessage("Email does not exist. Please try again");
+			userVO.setStatus(-1);	
+		}
+		return userVO;
+	}
 }

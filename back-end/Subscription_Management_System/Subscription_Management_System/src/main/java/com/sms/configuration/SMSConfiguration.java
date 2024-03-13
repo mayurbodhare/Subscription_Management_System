@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SMSConfiguration {
 	@Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/");
+        return (web) -> web.ignoring().requestMatchers("/*");
     }
 	
 	@Bean

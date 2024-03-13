@@ -17,9 +17,13 @@ public class SMSController {
 	@Autowired
 	private UserService userService;
 	
-	@PostMapping("")
+	@PostMapping(value = "signup")
 	public UserVO signUp(@RequestBody UserDTO userDTO) {
 		return userService.addNewUser(userDTO);
+	}
+	@PostMapping(value = "login")
+	public UserVO login(@RequestBody UserDTO userDTO) {
+		return userService.login(userDTO);
 	}
 	
 }
