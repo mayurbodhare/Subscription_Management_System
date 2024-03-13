@@ -18,5 +18,5 @@ public class UserDTO {
 	private String lastName;
 	private String password;
 	
-	private List<ActiveSubscriptionsDTO> subscriptions;
+	private List<SubscriptionsObjectDTO> subscriptions;
 }

@@ -9,5 +9,10 @@ import com.sms.repository.SubscriptionRepository;
 public class SubscriptionDAO {
 	@Autowired
 	private SubscriptionRepository subscriptionRepository;
+
+	public static void subscriptionExists(String lowerCase) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

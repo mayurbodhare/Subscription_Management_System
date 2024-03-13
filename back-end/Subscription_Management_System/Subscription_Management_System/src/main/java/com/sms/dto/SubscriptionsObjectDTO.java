@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActiveSubscriptionsDTO {
+public class SubscriptionsObjectDTO {
 	private SubscriptionDTO subscriptionDTO;
 	private PlanDTO planDTO;
 }

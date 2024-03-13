@@ -1,12 +1,16 @@
 package com.sms.service;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sms.dao.UserDAO;
+import com.sms.dto.SubscriptionsObjectDTO;
 import com.sms.dto.UserDTO;
+import com.sms.entity.RelationEntity;
 import com.sms.entity.UserEntity;
 import com.sms.vo.UserVO;
 
@@ -60,5 +64,12 @@ public class UserService {
 			userVO.setStatus(-1);	
 		}
 		return userVO;
+	}
+
+	public List<SubscriptionsObjectDTO> getActiveSubscriptions(String email) {
+		UserEntity userEntity = userDAO.getUser(email);
+		List<RelationEntity> relationEntities = userEntity.getRelations();
+//		incomplete
+		return null;
 	}
 }
