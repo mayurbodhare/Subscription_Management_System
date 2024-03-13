@@ -16,9 +16,6 @@ public class SubscriptionManagementSystemApplication {
 		SpringApplication.run(SubscriptionManagementSystemApplication.class, args);
 	}
 	
-	@Bean
-	private static ModelMapper getMapper() {
-		return new ModelMapper();
-	}
+	
 
 }
