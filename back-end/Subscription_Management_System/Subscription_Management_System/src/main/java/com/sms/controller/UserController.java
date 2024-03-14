@@ -18,7 +18,7 @@ import com.sms.vo.UserVO;
 
 
 @RestController
-@RequestMapping("user")
+@RequestMapping(value = "user")
 @CrossOrigin
 public class UserController {
 	
@@ -34,7 +34,7 @@ public class UserController {
 		return userService.login(userDTO);
 	}
 	
-	@GetMapping("/activesubscription")
+	@GetMapping(value = "/activesubscription")
 	public List<SubscriptionsObjectDTO> getActiveSubscriptions(@RequestParam String email) {
 		return userService.getActiveSubscriptions(email);
 	}
