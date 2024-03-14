@@ -15,7 +15,4 @@ public class SubscriptionManagementSystemApplication {
 		log.info("Inside Main App!!!");
 		SpringApplication.run(SubscriptionManagementSystemApplication.class, args);
 	}
-	
-	
-
 }
