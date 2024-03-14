@@ -1,5 +1,6 @@
 package com.sms.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -8,9 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sms.dao.UserDAO;
+import com.sms.dto.PlanDTO;
+import com.sms.dto.SubscriptionDTO;
 import com.sms.dto.SubscriptionsObjectDTO;
 import com.sms.dto.UserDTO;
+import com.sms.entity.PlanEntity;
 import com.sms.entity.RelationEntity;
+import com.sms.entity.SubscriptionEntity;
 import com.sms.entity.UserEntity;
 import com.sms.vo.UserVO;
 
@@ -65,11 +70,27 @@ public class UserService {
 		}
 		return userVO;
 	}
-
+	
 	public List<SubscriptionsObjectDTO> getActiveSubscriptions(String email) {
 		UserEntity userEntity = userDAO.getUser(email);
+		List<SubscriptionsObjectDTO> list = new ArrayList<>();	
 		List<RelationEntity> relationEntities = userEntity.getRelations();
-//		incomplete
-		return null;
+		for (RelationEntity relationEntity : relationEntities) {
+			SubscriptionsObjectDTO dto = new SubscriptionsObjectDTO();
+			SubscriptionEntity subscriptionEntity = relationEntity.getSubscriptionEntity();
+			PlanEntity planEntity = relationEntity.getPlanEntity();
+			SubscriptionDTO subscriptionDTO = mapper.map(subscriptionEntity, SubscriptionDTO.class);
+			PlanDTO planDTO = mapper.map(planEntity, PlanDTO.class);
+			planDTO.setStartDate(relationEntity.getStartDate());
+			planDTO.setEndDate(relationEntity.getEndDate());
+			dto.setSubscriptionDTO(subscriptionDTO);
+			dto.setPlanDTO(planDTO);
+			list.add(dto);
+		}
+//		
+		return list;
 	}
 }
+
+
+

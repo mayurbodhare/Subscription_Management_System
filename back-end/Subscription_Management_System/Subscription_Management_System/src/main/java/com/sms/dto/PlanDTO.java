@@ -13,4 +13,6 @@ public class PlanDTO {
 	private Integer price;
 	private Integer duration;
 	private Boolean upgradable;
+	private String startDate;
+	private String endDate;
 }
