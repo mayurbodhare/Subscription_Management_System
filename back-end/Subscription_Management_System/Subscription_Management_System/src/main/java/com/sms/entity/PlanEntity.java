@@ -17,11 +17,11 @@ public class PlanEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer planId;
-	private String PlanName;
+	private String planName;
 	private Integer price;
 	private Integer duration;
 	private Boolean upgradable;
 	
-	@ManyToOne
-    private SubscriptionEntity subscription;
+//	@OneToOne
+//    private SubscriptionEntity subscription;
 }
