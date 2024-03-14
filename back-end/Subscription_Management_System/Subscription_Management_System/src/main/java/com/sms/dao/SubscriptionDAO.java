@@ -11,7 +11,7 @@ public class SubscriptionDAO {
 	private SubscriptionRepository subscriptionRepository;
 
 	public static void subscriptionExists(String lowerCase) {
-		// TODO Auto-generated method stub
+//		subscriptionRepository.
 		
 	}
 	

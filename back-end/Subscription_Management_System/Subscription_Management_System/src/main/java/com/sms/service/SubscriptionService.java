@@ -13,6 +13,7 @@ public class SubscriptionService {
 	private SubscriptionDAO subscriptionDAO;
 
 	public static SubscriptionVO addNewSubScription(SubscriptionsObjectDTO subscriptionsObjectDTO) {
+		SubscriptionDAO.subscriptionExists(subscriptionsObjectDTO.getSubscriptionDTO().getSubscriptionName().toLowerCase());
 		
 		return null;
 	}
