@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sms.dto.RelationDTO;
 import com.sms.dto.SubscriptionsObjectDTO;
 import com.sms.dto.UserDTO;
 import com.sms.service.UserService;
@@ -37,6 +38,10 @@ public class UserController {
 	@GetMapping(value = "/activesubscription")
 	public List<SubscriptionsObjectDTO> getActiveSubscriptions(@RequestParam String email) {
 		return userService.getActiveSubscriptions(email);
+	}
+	@PostMapping(value = "buysubscription")
+	public UserVO buySubscription(@RequestBody RelationDTO relationDTO) {
+		return userService.addSubscription(relationDTO);
 	}
 	
 }
