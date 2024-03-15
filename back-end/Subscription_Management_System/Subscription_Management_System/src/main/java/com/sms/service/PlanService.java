@@ -22,5 +22,4 @@ public class PlanService {
 		return planDAO.addAllPlans(plans);
 	}
 
-	
 }

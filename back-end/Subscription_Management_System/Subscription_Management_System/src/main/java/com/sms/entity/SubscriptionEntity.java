@@ -20,7 +20,7 @@ public class SubscriptionEntity {
 	private Integer subscriptionId;
 	private String subscriptionName;
 	
-	@OneToMany(mappedBy = "planId")
+	@OneToMany
     private List<PlanEntity> plans;
 
 }

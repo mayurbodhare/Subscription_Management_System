@@ -22,6 +22,9 @@ public class PlanEntity {
 	private Integer duration;
 	private Boolean upgradable;
 	
-//	@OneToOne
+//	@ManyToOne
+//	private Integer subscriptionId;
+	
+//	@ManyToOne
 //    private SubscriptionEntity subscription;
 }
