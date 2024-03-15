@@ -15,8 +15,17 @@ public class PlanDAO {
 	@Autowired
 	private PlanRepository planRepository;
 
-	public List<PlanEntity> addAllPlans(List<PlanEntity> plans) {
+	public List<PlanEntity> saveAllPlans(List<PlanEntity> plans) {
 		return planRepository.saveAll(plans);
 		
+	}
+
+	public void removePlanById(Integer planId) {
+		planRepository.deleteById(planId);
+		
+	}
+
+	public void removeAllPlans(List<PlanEntity> planEntities) {
+		planRepository.deleteAll(planEntities);
 	}
 }

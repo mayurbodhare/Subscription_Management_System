@@ -12,15 +12,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class SMSConfiguration {
 	@Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/user/*", "/admin");
-    }
-	
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().requestMatchers("/user/*", "/admin", "/admin/*");
+	}
+
 	@Bean
 	private static ModelMapper getMapper() {
 		return new ModelMapper();
 	}
-	
+
 	@Bean
 	private static PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();

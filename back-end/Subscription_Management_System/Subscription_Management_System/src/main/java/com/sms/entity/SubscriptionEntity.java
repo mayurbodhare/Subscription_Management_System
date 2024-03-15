@@ -2,6 +2,7 @@ package com.sms.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class SubscriptionEntity {
 	private Integer subscriptionId;
 	private String subscriptionName;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
     private List<PlanEntity> plans;
 
 }

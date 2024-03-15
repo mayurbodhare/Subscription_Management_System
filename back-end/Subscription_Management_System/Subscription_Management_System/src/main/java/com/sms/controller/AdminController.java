@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,9 @@ import com.sms.service.SubscriptionService;
 import com.sms.vo.SubscriptionPlanListVO;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RestController
@@ -32,9 +36,18 @@ public class AdminController {
 	
 	@GetMapping("")
 	public List<SubscriptionDTO> getAllSubscription() {
-		log.info("Inside setAllSubscription");
 		return subscriptionService.getAllSubscription();
 	}
 	
+	@PutMapping("{subscriptionId}")
+	public SubscriptionPlanListVO updateSubscription(@PathVariable Integer subscriptionId, @RequestBody SubscriptionDTO subscriptionDTO) {
+		log.info("Inside updateSubscription");
+		return subscriptionService.updateSubscription(subscriptionId, subscriptionDTO);
+	}
+	
+	@DeleteMapping("{subscriptionId}")
+	public SubscriptionPlanListVO deleteSubscription(@PathVariable Integer subscriptionId) {
+		return subscriptionService.deleteSubscription(subscriptionId);
+	}
 
 }

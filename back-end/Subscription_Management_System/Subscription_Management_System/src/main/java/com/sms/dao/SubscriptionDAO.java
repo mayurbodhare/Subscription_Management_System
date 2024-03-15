@@ -1,6 +1,7 @@
 package com.sms.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -21,12 +22,27 @@ public class SubscriptionDAO {
 		return subscriptionRepository.existsBySubscriptionName(subscriptionName);
 	}
 
-	public SubscriptionEntity addSubscription(SubscriptionEntity subscriptionEntity) {
+	public SubscriptionEntity saveSubscription(SubscriptionEntity subscriptionEntity) {
 		return subscriptionRepository.save(subscriptionEntity);
 	}
 
 	public List<SubscriptionEntity> getAllSubscription() {
 		return subscriptionRepository.findAll();
 	}
+
+	public SubscriptionEntity getSubscriptionById(Integer subscriptionId) {
+		Optional<SubscriptionEntity> optional = subscriptionRepository.findById(subscriptionId);
+		if(optional.isPresent()) {
+			return optional.get();
+		}else {
+			return null;
+		}
+	}
+
+	public void removeSubscription(Integer subscriptionId) {
+		subscriptionRepository.deleteById(subscriptionId);		
+	}
+
+
 
 }

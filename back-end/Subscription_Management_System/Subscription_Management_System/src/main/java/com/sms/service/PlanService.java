@@ -16,10 +16,19 @@ public class PlanService {
 	@Autowired
 	private PlanDAO planDAO;
 
-	public List<PlanEntity> addAllPlans(List<PlanEntity> plans ) {
-		log.info("inside planservices");
-		log.info(plans.toString());	
-		return planDAO.addAllPlans(plans);
+	public List<PlanEntity> saveAllPlans(List<PlanEntity> plans ) {
+		return planDAO.saveAllPlans(plans);
+	}
+
+	public void removePlan(Integer planId) {
+		log.info("inside planservices  => removePlan");
+		log.info(planId.toString());	
+		planDAO.removePlanById(planId);
+	}
+
+	public void removeAllPlans(List<PlanEntity> planEntities) {
+		planDAO.removeAllPlans(planEntities);
+		
 	}
 
 }
