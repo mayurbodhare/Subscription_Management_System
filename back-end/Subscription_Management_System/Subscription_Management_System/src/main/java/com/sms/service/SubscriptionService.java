@@ -31,6 +31,7 @@ public class SubscriptionService {
 	@Autowired
 	private ModelMapper mapper;
 
+// Create
 	public SubscriptionPlanListVO addNewSubScription(SubscriptionDTO subscriptionDTO) {
 
 		SubscriptionPlanListVO subscriptionPlanListVO = new SubscriptionPlanListVO(null, null, null);
@@ -56,10 +57,7 @@ public class SubscriptionService {
 		return subscriptionPlanListVO;
 	}
 
-	private boolean subscriptionNameIsExists(String subscriptionName) {
-		return subscriptionDAO.subscriptionExists(subscriptionName);
-	}
-
+//Read
 	public List<SubscriptionDTO> getAllSubscription() {
 		List<SubscriptionEntity> subscriptionEntities = subscriptionDAO.getAllSubscription();
 		List<SubscriptionDTO> subscriptionDTOs = mapper.map(subscriptionEntities,
@@ -68,6 +66,13 @@ public class SubscriptionService {
 		return subscriptionDTOs;
 	}
 
+	public SubscriptionDTO getOneSubscription(Integer subscriptionId) {
+		SubscriptionEntity subscriptionEntity = subscriptionDAO.getSubscriptionById(subscriptionId);
+		SubscriptionDTO subscriptionDTO = mapper.map(subscriptionEntity, SubscriptionDTO.class);
+		return subscriptionDTO;
+	}
+
+//	Update
 	public SubscriptionPlanListVO updateSubscription(Integer subscriptionId, SubscriptionDTO subscriptionDTO) {
 		SubscriptionPlanListVO subscriptionPlanListVO = new SubscriptionPlanListVO(null, null, null);
 		SubscriptionDTO oldSubscriptionDTO = this.getOneSubscription(subscriptionId);
@@ -82,8 +87,6 @@ public class SubscriptionService {
 			if (subscriptionDTO.getPlans() != null) {
 				List<PlanEntity> newPlans = subscriptionDTO.getPlans();
 				List<PlanEntity> oldPlans = oldSubscriptionDTO.getPlans();
-				log.info(newPlans.toString());
-				log.info(oldPlans.toString());
 				for (PlanEntity newPlan : newPlans) {
 					// Check if the new plan already exists in old plans
 					boolean planExists = oldPlans.stream()
@@ -100,10 +103,8 @@ public class SubscriptionService {
 			}
 
 			SubscriptionEntity subscriptionEntity = mapper.map(oldSubscriptionDTO, SubscriptionEntity.class);
-
+			subscriptionEntity.setSubscriptionName(subscriptionEntity.getSubscriptionName().toLowerCase());
 			SubscriptionEntity newSubscriptionEntity = subscriptionDAO.saveSubscription(subscriptionEntity);
-			log.warn(subscriptionEntity.toString());
-			log.warn(newSubscriptionEntity.toString());
 			SubscriptionDTO newSubscriptionDTO = mapper.map(newSubscriptionEntity, SubscriptionDTO.class);
 
 			subscriptionPlanListVO.setSubscriptionDTO(newSubscriptionDTO);
@@ -117,12 +118,7 @@ public class SubscriptionService {
 		return subscriptionPlanListVO;
 	}
 
-	private SubscriptionDTO getOneSubscription(Integer subscriptionId) {
-		SubscriptionEntity subscriptionEntity = subscriptionDAO.getSubscriptionById(subscriptionId);
-		SubscriptionDTO subscriptionDTO = mapper.map(subscriptionEntity, SubscriptionDTO.class);
-		return subscriptionDTO;
-	}
-
+//Delete	
 	public SubscriptionPlanListVO deleteSubscription(Integer subscriptionId) {
 		SubscriptionPlanListVO subscriptionPlanListVO = new SubscriptionPlanListVO(null, null, null);
 		SubscriptionDTO subscriptionDTO = this.getOneSubscription(subscriptionId);
@@ -135,6 +131,11 @@ public class SubscriptionService {
 			subscriptionPlanListVO.setStatus(0);
 		}
 		return subscriptionPlanListVO;
+	}
+
+//	Helper
+	private boolean subscriptionNameIsExists(String subscriptionName) {
+		return subscriptionDAO.subscriptionExists(subscriptionName);
 	}
 
 }

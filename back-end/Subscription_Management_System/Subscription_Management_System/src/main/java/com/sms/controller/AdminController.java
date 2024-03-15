@@ -38,6 +38,11 @@ public class AdminController {
 	public List<SubscriptionDTO> getAllSubscription() {
 		return subscriptionService.getAllSubscription();
 	}
+	@GetMapping("{subscriptionId}")
+	public SubscriptionDTO getMethodName(@PathVariable Integer subscriptionId) {
+		return subscriptionService.getOneSubscription(subscriptionId);
+	}
+	
 	
 	@PutMapping("{subscriptionId}")
 	public SubscriptionPlanListVO updateSubscription(@PathVariable Integer subscriptionId, @RequestBody SubscriptionDTO subscriptionDTO) {
