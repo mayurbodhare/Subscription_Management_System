@@ -49,5 +49,8 @@ public class UserController {
 	public UserVO cancelSubscription(@RequestBody RelationDTO relationDTO) {
 		return userService.removeSubscription(relationDTO);
 	}
-
+	@PostMapping(value = "upgrade")
+	public UserVO upgradeSubscription(@RequestBody RelationDTO relationDTO) {
+		return userService.upgradeSubscription(relationDTO);
+	}
 }

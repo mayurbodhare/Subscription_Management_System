@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sms.dao.RelationDAO;
+import com.sms.dao.SubscriptionDAO;
 import com.sms.dao.UserDAO;
 import com.sms.dto.PlanDTO;
 import com.sms.dto.RelationDTO;
@@ -30,6 +31,9 @@ public class UserService {
 
 	@Autowired
 	private RelationDAO relationDAO;
+
+	@Autowired
+	private SubscriptionDAO subscriptionDAO;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -63,6 +67,7 @@ public class UserService {
 			if (passwordEncoder.matches(uiPassword, dbHashedPassword)) {
 
 				userVO.setUserDTO(mapper.map(userEntity, UserDTO.class));
+				userVO.getUserDTO().setPassword(null);
 				userVO.getUserDTO().setSubscriptions(getActiveSubscriptions(userDTO.getEmail()));
 				userVO.setMessage("Login Successful");
 				userVO.setStatus(1);
@@ -114,14 +119,14 @@ public class UserService {
 		LocalDate startDate = LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 		LocalDate endDate = startDate.plusMonths(duration);
 		relationDTO.setEndDate(endDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-	    
+
 		RelationEntity relationEntity = mapper.map(relationDTO, RelationEntity.class);
 		if (relationDAO.checkIfSubscriptionExists(relationDTO.getEmailId(),
 				relationDTO.getSubscriptionEntity().getSubscriptionId())) {
 			userVO.setMessage("Already Subscribed");
 			userVO.setStatus(0);
 		} else {
-			
+
 			RelationEntity relationEntityReceived = relationDAO.addSubscription(relationEntity);
 
 			if (userVO.getUserDTO() == null) {
@@ -137,7 +142,81 @@ public class UserService {
 	}
 
 	public UserVO removeSubscription(RelationDTO relationDTO) {
-			
-		return null;
+		UserVO userVO = new UserVO(null, null, null);
+		int check = relationDAO.removeSubscription(relationDTO.getEmailId(),
+				relationDTO.getSubscriptionEntity().getSubscriptionId());
+		if (check > 0) {
+			userVO.setMessage("Subscription removed successfully");
+			userVO.setStatus(1);
+		} else {
+			userVO.setMessage("Subscription not removed");
+			userVO.setStatus(0);
+		}
+		return userVO;
+
 	}
+
+	public UserVO upgradeSubscription(RelationDTO relationDTO) {
+		UserVO userVO = new UserVO(null, null, null);
+		SubscriptionEntity subscriptionEntity = subscriptionDAO
+				.getSubscriptionById(relationDTO.getSubscriptionEntity().getSubscriptionId());
+		List<PlanEntity> subscriptionPlans = subscriptionEntity.getPlans();
+		boolean isUpgradable = false;
+		boolean checkUpgradable = false;
+
+		UserEntity userEntity = userDAO.getUser(relationDTO.getEmailId());
+		List<RelationEntity> relationEntities = userEntity.getRelations();
+		for (RelationEntity relationEntity : relationEntities) {
+			if (relationEntity.getSubscriptionEntity().getSubscriptionId() == relationDTO.getSubscriptionEntity()
+					.getSubscriptionId()) {
+				checkUpgradable = relationEntity.getPlanEntity().getUpgradable();
+				break;
+			}
+		}
+
+		for (PlanEntity plan : subscriptionPlans) {
+			if (plan.getPlanId() == relationDTO.getPlanEntity().getPlanId() && checkUpgradable) {
+				isUpgradable = true;
+				break;
+			}
+		}
+
+		if (isUpgradable) {
+			int check = relationDAO.upgradeSubscription(relationDTO);
+			if (check > 0) {
+				userVO.setMessage("Subscription upgraded successfully");
+				userVO.setStatus(1);
+			} else {
+				userVO.setMessage("Subscription not upgraded");
+				userVO.setStatus(0);
+			}
+		} else {
+			userVO.setMessage("Subscription not upgradable");
+			userVO.setStatus(-1);
+		}
+
+		return userVO;
+	}
+
 }
+
+/*
+ * if (plans != null) { for (PlanEntity plan : plans) {
+ * 
+ * if (plan.getPlanId() < relationDTO.getPlanEntity().getPlanId()) { if
+ * (plan.getUpgradable()) { int check =
+ * relationDAO.upgradeSubscription(relationDTO); if (check > 0) {
+ * userVO.setMessage("Subscription upgraded successfully"); userVO.setStatus(1);
+ * } else { userVO.setMessage("Subscription not upgraded"); userVO.setStatus(0);
+ * } } else { userVO.setMessage("Subscription not upgradable");
+ * userVO.setStatus(-1); } } } } return userVO; List<Integer> list = new
+ * ArrayList<>(); for (PlanEntity plan : plans) { list.add(plan.getPlanId()); }
+ * int last = list.get(list.size() - 1); if
+ * (relationDTO.getPlanEntity().getPlanId() <= last) { int check =
+ * relationDAO.upgradeSubscription(relationDTO); if (check > 0) {
+ * userVO.setMessage("Subscription upgraded successfully"); userVO.setStatus(1);
+ * } else { userVO.setMessage("Subscription not upgraded"); userVO.setStatus(0);
+ * } } else { userVO.setMessage("Subscription not upgradable");
+ * userVO.setStatus(-1); }
+ * 
+ */

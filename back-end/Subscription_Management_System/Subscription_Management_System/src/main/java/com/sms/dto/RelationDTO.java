@@ -4,8 +4,6 @@ import com.sms.entity.PlanEntity;
 import com.sms.entity.SubscriptionEntity;
 import com.sms.entity.UserEntity;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

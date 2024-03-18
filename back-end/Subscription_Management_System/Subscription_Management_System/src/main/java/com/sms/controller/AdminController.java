@@ -39,7 +39,7 @@ public class AdminController {
 		return subscriptionService.getAllSubscription();
 	}
 	@GetMapping("{subscriptionId}")
-	public SubscriptionDTO getMethodName(@PathVariable Integer subscriptionId) {
+	public SubscriptionDTO getSubscriptionById(@PathVariable Integer subscriptionId) {
 		return subscriptionService.getOneSubscription(subscriptionId);
 	}
 	
