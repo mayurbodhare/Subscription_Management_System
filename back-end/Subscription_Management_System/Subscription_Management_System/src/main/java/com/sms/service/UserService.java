@@ -135,4 +135,9 @@ public class UserService {
 
 		return userVO;
 	}
+
+	public UserVO removeSubscription(RelationDTO relationDTO) {
+			
+		return null;
+	}
 }
