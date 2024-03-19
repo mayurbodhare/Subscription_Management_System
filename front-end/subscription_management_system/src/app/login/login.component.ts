@@ -14,6 +14,7 @@ import { UserService } from '../../services/user.service';
 import { UserDTO } from '../../interface/userDTO';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -29,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private route: ActivatedRoute,
+    private router: Router) {}
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -50,6 +52,7 @@ export class LoginComponent {
         this.userDTO = response.userDTO;
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
+        this.router.navigate(['/dashboard']);
       });
   }
 }

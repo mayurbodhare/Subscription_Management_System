@@ -1,7 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+<<<<<<< HEAD
 import { PlanData } from '../../interface/PlanData';
+=======
+import { PlanDTO } from '../../interface/PlanDTO';
+>>>>>>> a7977d12fd427f9faaacdf6100a56c302542bdc3
 
 @Component({
   selector: 'app-card',
@@ -11,6 +15,7 @@ import { PlanData } from '../../interface/PlanData';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
+<<<<<<< HEAD
   constructor() {}
 
   data: PlanData = {
@@ -19,4 +24,7 @@ export class CardComponent {
     duration: '1 Month'
   };
   editable = false;
+=======
+  @Input() plan!: PlanDTO;
+>>>>>>> a7977d12fd427f9faaacdf6100a56c302542bdc3
 }
