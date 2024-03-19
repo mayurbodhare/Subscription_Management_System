@@ -3,12 +3,12 @@
     <h1>Active Subscriptions</h1>
     @for (subscription of activeSubscriptions; track $index) {
       <div class="subscription-wrapper mat-elevation-z4" >
-        <div class="jumbotron">
-          <h1>{{ subscription.subscriptionDTO.subscriptionName| capitalize }}</h1>
-        <mat-card-content class="subscription-content">
-          <div class="plans-container">
-            <div class="plan-cards">
-                <app-card  [plan]="subscription.planDTO" class="plan-card mat-card"></app-card>
+          <div class="jumbotron">
+            <mat-card-content class="subscription-content">
+                <h1>{{ subscription.subscriptionDTO.subscriptionName| capitalize }}</h1>
+                <div class="plans-container">
+                    <div class="plan-cards">
+                        <app-card  [plan]="subscription.planDTO" class="plan-card mat-card"></app-card>
             </div>
           </div>
         </mat-card-content>

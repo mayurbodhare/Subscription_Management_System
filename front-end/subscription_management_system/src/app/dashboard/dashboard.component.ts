@@ -11,6 +11,9 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { RelationDTO } from '../../interface/RelationDTO';
+import { PlanDTO } from '../../interface/PlanDTO';
+import { DateFormatPipe } from '../date-format.pipe';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,9 +32,12 @@ import { CommonModule } from '@angular/common';
   ],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private userService: UserService) {}
+
+  constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
   allSubscriptions!: SubscriptionDTO[];
+ 
+  relationDTO!:RelationDTO;
   ngOnInit(): void {
     this.userService.getAllSubscriptions().subscribe((res) => {
       console.log(res);
@@ -40,4 +46,16 @@ export class DashboardComponent implements OnInit {
       // console.log(this.loggedInUser);
     });
   }
+  buySubscription(subscription:SubscriptionDTO ,plan:PlanDTO) {
+    console.log(plan);
+    this.relationDTO.emailId = this.loggedInUser.email;
+    this.relationDTO.subscriptionEntity = subscription;
+    this.relationDTO.planEntity = plan;
+    this.relationDTO.startDate = this.dateFormatPipe.transform(new Date());
+
+    this.userService.buySubscription(this.relationDTO).subscribe((response) => {
+      
+    });
+    
+ }
 }

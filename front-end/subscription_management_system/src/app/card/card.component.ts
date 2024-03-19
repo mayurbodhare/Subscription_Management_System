@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { PlanDTO } from '../../interface/PlanDTO';
@@ -13,5 +13,8 @@ import { PlanDTO } from '../../interface/PlanDTO';
 export class CardComponent {
   @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
-  @Input() onButtonClick() {}
+  @Output() buyEvent = new EventEmitter;
+  @Input() onButtonClick() {
+    this.buyEvent.emit(this.plan);
+  }
 }
