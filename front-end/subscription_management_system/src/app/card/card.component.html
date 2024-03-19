@@ -1,14 +1,14 @@
 <mat-card class="example-card">
     <mat-card-header class="header">
-        <mat-card-title>{{planName}}</mat-card-title>
+        <mat-card-title>{{data.planName}}</mat-card-title>
     </mat-card-header>
     <mat-card-content class="content">
         <div class="info">
-            <p class="price mat-body-1">Price: {{price}}</p>
-            <p class="duration mat-body-1">Duration: {{duration}}</p>
+            <p class="price mat-body-1">Price: {{data.price}}</p>
+            <p class="duration mat-body-1">Duration: {{data.duration}}</p>
         </div>
     </mat-card-content>
     <mat-card-actions class="actions">
-        <button mat-raised-button color="primary">BUY</button>
+        <button mat-raised-button color="primary">{{editable?"EDIT":"BUY"}}</button>
     </mat-card-actions>
 </mat-card>

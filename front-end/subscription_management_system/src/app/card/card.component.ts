@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { PlanData } from '../../interface/PlanData';
 
 @Component({
   selector: 'app-card',
@@ -10,7 +11,12 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  price = 199;
-  duration = '1 Month';
-  planName = 'Basic';
+  constructor() {}
+
+  data: PlanData = {
+    price: 199,
+    planName: 'Basic',
+    duration: '1 Month'
+  };
+  editable = false;
 }
