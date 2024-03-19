@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from "./sign-up/sign-up.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, MatSlideToggleModule, LoginComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    imports: [RouterOutlet, MatSlideToggleModule, LoginComponent, SignUpComponent]
 })
 export class AppComponent {
   title = 'subscription_management_system';

@@ -14,21 +14,14 @@ export class UserService {
   constructor(private http: HttpClient) {}
   url = 'http://192.168.5.110/user';
 
-  // loginUser(email: string, password: string) {
-  //   const loginUrl = this.url + '/login';
-  //   this.http.post(loginUrl, { email, password }).subscribe(
-  //     (res) => {
-  //     console.log(res);
-  //     this.loginResponse = res;
-  //       this.loggedInUser = this.loginResponse.userDTO;
-      
-  //   });
-  // }
-
-  loginUser(email:any, password:any): Observable<any>{
-    return this.http.post<LoginResponseDTO>(`${this.url}/login`,{
+  loginUser(email: any, password: any): Observable<any> {
+    return this.http.post<LoginResponseDTO>(`${this.url}/login`, {
       email,
-      password
+      password,
     });
+  }
+
+  signUpUser(user: UserDTO): Observable<any> {
+    return this.http.post<LoginResponseDTO>(`${this.url}/signup`, user);
   }
 }
