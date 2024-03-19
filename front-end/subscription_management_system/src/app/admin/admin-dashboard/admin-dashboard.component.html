@@ -1,18 +1,6 @@
-<mat-card *ngFor="let subscription of subscriptions">
-    <mat-card-header class="header">
-        <mat-card-title>{{ subscription.subscriptionName }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="content">
-        <div class="plans-container">
-            <mat-card *ngFor="let plan of subscription.plans" class="plan-card">
-                <mat-card-content class="content">
-                    <p class="price mat-body-1">Price: {{ plan.price }}</p>
-                    <p class="duration mat-body-1">Duration: {{ plan.duration }}</p>
-                </mat-card-content>
-                <mat-card-actions class="actions">
-                    <button mat-raised-button color="primary">{{ plan.upgradable ? 'EDIT' : 'BUY' }}</button>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-    </mat-card-content>
-</mat-card>
+<ng-container *ngFor="let subscription of subscriptions">
+    <h2>{{subscription.subscriptionName}}</h2>
+    <ng-container *ngFor="let plan of subscription.plans">
+        <app-card [plan]="plan" [editable]="editable"></app-card>
+    </ng-container>
+</ng-container>

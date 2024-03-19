@@ -11,6 +11,7 @@ import { PlanDTO } from '../../interface/PlanDTO';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  editable: boolean = false;
+  @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
+  @Input() onButtonClick() {}
 }

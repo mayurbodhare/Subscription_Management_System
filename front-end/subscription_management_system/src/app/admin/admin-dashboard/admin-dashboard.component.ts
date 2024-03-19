@@ -1,22 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
-import { ActiveSubscriptionDTO } from '../../../interface/ActiveSubscriptionDTO';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
+import { CardComponent } from '../../card/card.component';
+import { Router } from '@angular/router';
+import { PlanDTO } from '../../../interface/PlanDTO';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [MatCardModule, CommonModule, FormsModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
+  imports: [MatCardModule, CommonModule, FormsModule, CardComponent],
 })
 export class AdminDashboardComponent implements OnInit {
   subscriptions: SubscriptionDTO[] = [];
+  editable: boolean = true;
+  selectedPlan: PlanDTO | null = null;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.adminService
@@ -26,7 +30,8 @@ export class AdminDashboardComponent implements OnInit {
         this.subscriptions = response;
       });
   }
-  check() {
-    console.log(this.subscriptions);
+  onButtonClick(plan: PlanDTO) {
+    this.selectedPlan = plan;
+    this.router.navigate(['/planform', plan.planId]);
   }
 }

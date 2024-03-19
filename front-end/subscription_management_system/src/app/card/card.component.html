@@ -9,6 +9,6 @@
         </div>
     </mat-card-content>
     <mat-card-actions class="actions">
-        <button mat-raised-button color="primary">{{editable?"EDIT":"BUY"}}</button>
+        <button mat-raised-button color="primary" (click)="onButtonClick()">{{editable?"EDIT":"BUY"}}</button>
     </mat-card-actions>
 </mat-card>
