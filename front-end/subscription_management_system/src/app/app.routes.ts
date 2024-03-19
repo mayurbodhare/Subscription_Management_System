@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { PlanFormComponent } from './admin/plan-form/plan-form.component';
+import { ActiveSubscriptionsComponent } from './active-subscriptions/active-subscriptions.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'admindashboard', component: AdminDashboardComponent },
   { path: 'planform', component: PlanFormComponent },
+  { path: 'active', component: ActiveSubscriptionsComponent },
 ];

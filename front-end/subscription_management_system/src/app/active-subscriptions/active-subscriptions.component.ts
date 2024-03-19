@@ -11,12 +11,11 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { ActiveSubscriptionDTO } from '../../interface/ActiveSubscriptionDTO';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-active-subscriptions',
   standalone: true,
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
   imports: [
     CardComponent,
     CommonModule,
@@ -27,17 +26,16 @@ import { CommonModule } from '@angular/common';
     MatCardTitle,
     MatCardContent,
   ],
+  templateUrl: './active-subscriptions.component.html',
+  styleUrl: './active-subscriptions.component.css'
 })
-export class DashboardComponent implements OnInit {
+export class ActiveSubscriptionsComponent implements OnInit{
   constructor(private userService: UserService) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
-  allSubscriptions!: SubscriptionDTO[];
+  activeSubscriptions: ActiveSubscriptionDTO[] = this.userService.activeSubscription;
   ngOnInit(): void {
-    this.userService.getAllSubscriptions().subscribe((res) => {
-      console.log(res);
-      this.allSubscriptions = res;
-      this.userService.allSubscriptions = res;
-      // console.log(this.loggedInUser);
-    });
+    console.log(this.userService.loggedInUser);
+    
   }
+
 }
