@@ -52,7 +52,10 @@ export class LoginComponent {
         this.userDTO = response.userDTO;
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
-        this.router.navigate(['/dashboard']);
+        this.userService.activeSubscription = response.userDTO.subscriptions;
+        // this.router.navigate(['/dashboard']);
+        this.router.navigate(['/active']);
+
       });
   }
 }

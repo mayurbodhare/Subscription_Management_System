@@ -1,16 +1,14 @@
-  <div class="subscriptions-container">
+<div class="subscriptions-container">
     <h2>Welcome ! {{ loggedInUser.firstName + ' ' + loggedInUser.lastName}}</h2>
-    <h1>Available Subscriptions</h1>
-    @for (subscription of allSubscriptions; track $index) {
+    <h1>Active Subscriptions</h1>
+    @for (subscription of activeSubscriptions; track $index) {
       <div class="subscription-wrapper mat-elevation-z4" >
         <div class="jumbotron">
-          <h1>{{ subscription.subscriptionName | capitalize }}</h1>
+          <h1>{{ subscription.subscriptionDTO.subscriptionName| capitalize }}</h1>
         <mat-card-content class="subscription-content">
           <div class="plans-container">
             <div class="plan-cards">
-              @for (plan of subscription.plans; track $index) {
-                <app-card  [plan]="plan" class="plan-card mat-card"></app-card>
-              }
+                <app-card  [plan]="subscription.planDTO" class="plan-card mat-card"></app-card>
             </div>
           </div>
         </mat-card-content>
