@@ -1,0 +1,11 @@
+<h2>Welcome ! {{ loggedInUser.firstName + ' ' + loggedInUser.lastName}}</h2>
+<h1>Available Subscriptions</h1>
+@for (subscription of allSubscriptions; track $index) {
+    <h2>{{ subscription.subscriptionName | capitalize }}</h2>
+    <ul>
+        @for (plan of subscription.plans; track $index) {
+            <app-card [plan]="plan"></app-card>
+        }
+    </ul>
+    <hr>
+}

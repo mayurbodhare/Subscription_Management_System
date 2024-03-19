@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { PlanDTO } from '../../interface/PlanDTO';
 
 @Component({
   selector: 'app-card',
@@ -10,7 +11,5 @@ import { MatCardModule } from '@angular/material/card';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  price = 199;
-  duration = '1 Month';
-  planName = 'Basic';
+  @Input() plan!: PlanDTO;
 }
