@@ -34,10 +34,16 @@ input.example-right-align {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
 }
 
 .center-button {
   display: flex;
   justify-content: center;
+}
+
+.error{
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: 2rem;
 }

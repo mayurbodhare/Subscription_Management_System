@@ -15,6 +15,7 @@ import { UserDTO } from '../../interface/userDTO';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCard, MatCardContent } from '@angular/material/card';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -25,6 +26,8 @@ import { ActivatedRoute, Router } from '@angular/router';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    MatCard,
+    MatCardContent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -40,7 +43,7 @@ export class LoginComponent {
   email = '';
   password = '';
   userDTO!: UserDTO;
-
+  errorMessage = '';
   loginUser() {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
@@ -48,13 +51,19 @@ export class LoginComponent {
     this.userService
       .loginUser(this.email, this.password)
       .subscribe((response) => {
-        console.log(response);
-        this.userDTO = response.userDTO;
-        console.log(this.userDTO);
-        this.userService.loggedInUser = this.userDTO;
-        this.userService.activeSubscription = response.userDTO.subscriptions;
-        // this.router.navigate(['/dashboard']);
-        this.router.navigate(['/active']);
+        if(response.status == 1){  
+          this.userDTO = response.userDTO;
+          this.userService.loggedInUser = this.userDTO;
+          this.userService.activeSubscription = response.userDTO.subscriptions;
+          this.router.navigate(['/dashboard']);
+          // this.router.navigate(['/active']);
+        }
+        else{
+          this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2000)
+        }
         
       });
   }

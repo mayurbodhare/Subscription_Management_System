@@ -11,11 +11,10 @@ import {
   MatCardTitle,
 } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { ActiveSubscriptionDTO } from '../../interface/ActiveSubscriptionDTO';
 import { RelationDTO } from '../../interface/RelationDTO';
 import { PlanDTO } from '../../interface/PlanDTO';
 import { DateFormatPipe } from '../date-format.pipe';
-import { ActivatedRoute, Router } from '@angular/router';
+
 class RelationDTOImpl implements RelationDTO {
   constructor(
     public emailId: string,
@@ -26,9 +25,9 @@ class RelationDTOImpl implements RelationDTO {
   ) {}
 }
 @Component({
-  selector: 'app-active-subscriptions',
+  selector: 'app-available-subscription',
   standalone: true,
-  imports: [
+  imports: [ 
     CardComponent,
     CommonModule,
     CapitalizePipe,
@@ -37,40 +36,37 @@ class RelationDTOImpl implements RelationDTO {
     MatCardHeader,
     MatCardTitle,
     MatCardContent,
-    DateFormatPipe
   ],
-  templateUrl: './active-subscriptions.component.html',
-  styleUrl: './active-subscriptions.component.css',
+  templateUrl: './available-subscription.component.html',
+  styleUrl: './available-subscription.component.css'
 })
-export class ActiveSubscriptionsComponent implements OnInit {
-
-  constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe,private route: ActivatedRoute, private router: Router) {}
+export class AvailableSubscriptionComponent implements OnInit {
+  constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
-  activeSubscriptions: ActiveSubscriptionDTO[] =
-    this.userService.activeSubscription;
-    relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
+  allSubscriptions!: SubscriptionDTO[];
+ 
+  relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
 
   ngOnInit(): void {
-    console.log(this.userService.loggedInUser);
-    this.userService.getActiveSubscriptions().subscribe((res) => {
-      this.activeSubscriptions = res;
-      this.userService.activeSubscription = res;
+    this.userService.getAllSubscriptions().subscribe((res) => {
+      console.log(res);
+      this.allSubscriptions = res;
+      this.userService.allSubscriptions = res;
+      // console.log(this.loggedInUser);
     });
   }
-  upgradeSubscription(subscription:SubscriptionDTO ,plan:PlanDTO): void {
+  buySubscription(subscription:SubscriptionDTO ,plan:PlanDTO) {
     console.log(plan);
-    this.router.navigate(['/payment', {amount:plan.price}]);
-  }
-  cancelSubscription(subscription: SubscriptionDTO,plan: PlanDTO) {
-
     this.relationDTO.emailId = this.loggedInUser.email;
     this.relationDTO.subscriptionEntity = subscription;
     this.relationDTO.planEntity = plan;
     this.relationDTO.startDate = this.dateFormatPipe.transform(new Date());
-    this.userService.cancelSubscriptiopn(this.relationDTO).subscribe((response) => {
+    
+    this.userService.buySubscription(this.relationDTO).subscribe((response) => {
       console.log(response);
       this.userService.activeSubscription = response.userDTO.subscriptions;
-      this.activeSubscriptions = response.userDTO.subscriptions;
     });
-  }
+    
+ }
+
 }

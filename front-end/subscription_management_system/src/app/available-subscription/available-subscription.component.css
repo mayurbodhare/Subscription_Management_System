@@ -1,0 +1,36 @@
+.subscription-wrapper {
+    margin: 20px ;
+  }
+  
+  .jumbotron {
+    background-color: #f8f9fa;
+    padding: 10px;
+  }
+  
+  .jumbotron h1 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .subscription-content {
+    padding: 10px;
+  }
+  
+  .plans-container {
+    display: flex;
+    overflow-x: auto;
+  }
+  
+  .plan-cards {
+    display: flex;
+    align-content: space-evenly
+  }
+  
+  .plan-card {
+    margin-right: 10px;
+  }
+  
+  .subscriptions-container{
+    margin: 3rem;
+    padding: 3rem;
+  }

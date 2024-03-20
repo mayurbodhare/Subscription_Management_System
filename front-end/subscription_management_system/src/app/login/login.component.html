@@ -1,6 +1,12 @@
+@if (errorMessage !== '') {
+  <mat-card class="error">
+    <mat-card-content>{{errorMessage}}</mat-card-content>
+  </mat-card>
+} 
 <div class="container">
-    <div>
+  <div>
         <div class="example-form">
+          
         <h1>Login</h1>
         <mat-form-field class="example-full-width">
           <mat-label>Email</mat-label>
@@ -19,6 +25,7 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
+        
         <div class="center-button">
             <button mat-raised-button color="primary" class="custom-button" (click)="loginUser()">Submit</button  >
         </div>

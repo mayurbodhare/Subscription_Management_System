@@ -7,6 +7,8 @@ import { CardComponent } from './card/card.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ActiveSubscriptionsComponent } from './active-subscriptions/active-subscriptions.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +24,8 @@ import { ActiveSubscriptionsComponent } from './active-subscriptions/active-subs
     DashboardComponent,
     AdminDashboardComponent,
     ActiveSubscriptionsComponent,
+    MatIcon,
+    MatToolbar
   ],
 })
 export class AppComponent {
