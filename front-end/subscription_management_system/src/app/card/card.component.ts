@@ -15,9 +15,26 @@ export class CardComponent {
   constructor() {}
   @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
-  @Input() title!: string;
+  @Input() buyTitle: string = "";
+  @Input() upgradeTitle: string = "";
+  @Input() removeTitle : string = "";
   @Output() buyEvent = new EventEmitter();
-  @Input() onButtonClick() {
+  @Output() upgradeEvent = new EventEmitter();
+  @Output() cancelEvent = new EventEmitter();
+  
+ 
+
+  onBuyClick() {
     this.buyEvent.emit(this.plan);
   }
+  
+  onUpgradeClick() {
+    this.upgradeEvent.emit();
+  }
+
+  onCancelClick() {
+    this.cancelEvent.emit();
+  }
+
+
 }

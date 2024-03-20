@@ -42,4 +42,8 @@ export class UserService {
   buySubscription(relationDTO: RelationDTO): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(`${this.url}/user/buy`, relationDTO);
   }
+
+  cancelSubscriptiopn(relationDTO: RelationDTO): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.url}/user/cancel`, relationDTO);
+  }
 }

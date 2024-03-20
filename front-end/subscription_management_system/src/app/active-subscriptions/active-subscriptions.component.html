@@ -1,18 +1,27 @@
 <div class="subscriptions-container">
-    <h2>Welcome ! {{ loggedInUser.firstName + ' ' + loggedInUser.lastName}}</h2>
-    <h1>Active Subscriptions</h1>
-    @for (subscription of activeSubscriptions; track $index) {
-      <div class="subscription-wrapper mat-elevation-z4" >
-          <div class="jumbotron">
-            <mat-card-content class="subscription-content">
-                <h1>{{ subscription.subscriptionDTO.subscriptionName| capitalize }}</h1>
-                <div class="plans-container">
-                    <div class="plan-cards">
-                        <app-card  [plan]="subscription.planDTO" class="plan-card mat-card" [title]="'upgrade'"></app-card>
-            </div>
+  <h2>Welcome ! {{ loggedInUser.firstName + " " + loggedInUser.lastName }}</h2>
+  <h1>Active Subscriptions</h1>
+  @for (subscription of activeSubscriptions; track $index) {
+  <div class="subscription-wrapper mat-elevation-z4">
+    <div class="jumbotron">
+      <mat-card-content class="subscription-content">
+        <h1>
+          {{ subscription.subscriptionDTO.subscriptionName | capitalize }}
+        </h1>
+        <div class="plans-container">
+          <div class="plan-cards">
+            <app-card
+              [plan]="subscription.planDTO"
+              class="plan-card mat-card"
+              [upgradeTitle]="'upgrade'"
+              [removeTitle]="'cancel'"
+              (upgradeEvent)="upgradeSubscription(subscription.subscriptionDTO, subscription.planDTO)"
+              (cancelEvent)="cancelSubscription(subscription.subscriptionDTO, subscription.planDTO)"
+            ></app-card>
           </div>
-        </mat-card-content>
-      </div>
+        </div>
+      </mat-card-content>
     </div>
-  }
   </div>
+  }
+</div>

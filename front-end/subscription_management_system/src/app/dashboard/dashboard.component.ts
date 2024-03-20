@@ -45,6 +45,9 @@ class RelationDTOImpl implements RelationDTO {
 
 
 export class DashboardComponent implements OnInit {
+cancelSubscription(_t4: SubscriptionDTO,_t18: PlanDTO) {
+throw new Error('Method not implemented.');
+}
 
   constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
