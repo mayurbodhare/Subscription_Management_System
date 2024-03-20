@@ -39,8 +39,7 @@ public class AdminController {
 	@GetMapping("{subscriptionId}")
 	public SubscriptionDTO getSubscriptionById(@PathVariable Integer subscriptionId) {
 		return subscriptionService.getOneSubscription(subscriptionId);
-	}
-	
+	}	
 	
 	@PutMapping("{subscriptionId}")
 	public SubscriptionPlanListVO updateSubscription(@PathVariable Integer subscriptionId, @RequestBody SubscriptionDTO subscriptionDTO) {

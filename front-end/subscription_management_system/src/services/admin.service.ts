@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SubscriptionDTO } from '../interface/subscriptionDTO';
+import { PlanDTO } from '../interface/PlanDTO';
 
 @Injectable({
   providedIn: 'root',
@@ -11,5 +13,15 @@ export class AdminService {
 
   getAllSubscription(): Observable<any> {
     return this.http.get<any>(`${this.url}`);
+  }
+
+  updateSubscription(
+    subscriptionId: number,
+    planDTO: PlanDTO
+  ): Observable<any> {
+    return this.http.put<any>(`${this.url}/${subscriptionId}`, {
+      subscriptionId,
+      planDTO,
+    });
   }
 }

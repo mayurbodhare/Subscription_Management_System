@@ -152,8 +152,12 @@ public class UserService {
 			userVO.setMessage("Subscription not removed");
 			userVO.setStatus(0);
 		}
+		UserEntity userEntity = userDAO.getUser(relationDTO.getEmailId());
+		UserDTO userDTO = mapper.map(userEntity, UserDTO.class);
+		userDTO.setSubscriptions(this.getActiveSubscriptions(relationDTO.getEmailId()));
+		userVO.setUserDTO(userDTO);
+		
 		return userVO;
-
 	}
 
 	public UserVO upgradeSubscription(RelationDTO relationDTO) {

@@ -1,28 +1,28 @@
-<form class="example-form">
-    <mat-form-field>
-        <mat-label>Subscription Name</mat-label>
-        <input matInput placeholder="Subscription Name">
-    </mat-form-field><br>
-
-    <mat-form-field>
-        <mat-label>Plan Name</mat-label>
-        <input matInput placeholder="Plan Name">
-    </mat-form-field><br>
-
-    <mat-form-field>
-        <mat-label>Price</mat-label>
-        <input matInput placeholder="Price">
-    </mat-form-field><br>
-
-    <mat-form-field>
-        <mat-label>Duration</mat-label>
-        <input matInput placeholder="Duration">
-    </mat-form-field><br>
-    <div class="example-button-row">
-        <button mat-raised-button color="primary">Submit</button>
-    </div>
-</form>
-
+<mat-card class="custom-card">
+    <mat-card-header>
+        <mat-card-title>
+            <input type="text" [(ngModel)]="subscriptionName" class="subscription-name-input">
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="plan">
+        <p>
+            <span class="label">Plan Name:</span> <input type="text" [(ngModel)]="plan.planName" class="input-field">
+        </p>
+        <p>
+            <span class="label">Price:</span> <input type="number" [(ngModel)]="plan.price" class="input-field">
+        </p>
+        <p>
+            <span class="label">Duration:</span> <input type="text" [(ngModel)]="plan.duration" class="input-field">
+        </p>
+        <p>
+            <span class="label">Upgradable:</span> <input type="checkbox" [(ngModel)]="plan.upgradable"
+                class="checkbox-field">
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button *ngIf="editable" (click)="onBuyClick()" class="save-button">Save</button>
+    </mat-card-actions>
+</mat-card>
 
 
 <!-- <mat-card>
