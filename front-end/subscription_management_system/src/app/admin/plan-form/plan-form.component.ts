@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardComponent } from '../../card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -8,6 +8,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ActivatedRoute, Params } from '@angular/router';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-plan-form',
@@ -19,14 +22,35 @@ import { MatInputModule } from '@angular/material/input';
     MatSlideToggleModule,
     CommonModule,
     FormsModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './plan-form.component.html',
   styleUrl: './plan-form.component.css',
 })
 export class PlanFormComponent {
-  constructor() {}
+  subscriptionId!: number;
+  subscriptionName: string | undefined;
+  plan!: PlanDTO;
+  editable = true;
 
-  subscription!: SubscriptionDTO;
-  plans!: PlanDTO;
-  activated: boolean = false;
+  constructor(
+    private route: ActivatedRoute,
+    private adminService: AdminService
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.subscriptionId = params['subscriptionId'];
+      this.subscriptionName = params['subscriptionName'];
+      this.plan = JSON.parse(params['plan']);
+    });
+  }
+  onBuyClick() {
+    this.adminService
+      .updateSubscription(this.subscriptionId, this.plan)
+      .subscribe((response) => {
+        console.log(response);
+      });
+  }
 }
