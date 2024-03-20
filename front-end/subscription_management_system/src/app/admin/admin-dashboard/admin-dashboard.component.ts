@@ -31,13 +31,13 @@ export class AdminDashboardComponent implements OnInit {
       });
   }
 
-  // onNavigateToEdit(planId: number) {
-  //   this.router.navigate(['/plan', planId, 'edit']);
-  // }
-  onNavigateToEdit(selectedPlan: any) {
-    console.log(selectedPlan);
-    this.router.navigate(['/plan', selectedPlan.planId, 'edit'], {
-      state: { selectedPlan },
-    }); // Navigation with state
+  buyEvent(subscriptionId: number, subscriptionName: string, plan: PlanDTO) {
+    this.router.navigate(['/planform'], {
+      queryParams: {
+        subscriptionId: subscriptionId,
+        subscriptionName: subscriptionName,
+        plan: JSON.stringify(plan),
+      },
+    });
   }
 }

@@ -1,6 +1,22 @@
-<ng-container *ngFor="let subscription of subscriptions">
+<!-- <ng-container *ngFor="let subscription of subscriptions">
     <h2>{{subscription.subscriptionName}}</h2>
     <ng-container *ngFor="let plan of subscription.plans">
-        <app-card [plan]="plan" [editable]="editable" (navigateToEdit)="onNavigateToEdit($event)"></app-card>
+        <app-card [plan]="plan" [editable]="editable"
+            (buyEvent)="buyEvent($subscription.subscriptionId, subscription.subscriptionName, plan)"></app-card>
+    </ng-container>
+</ng-container> -->
+<!-- <ng-container *ngFor="let subscription of subscriptions">
+    <h2>{{subscription?.subscriptionName}}</h2>
+    <ng-container *ngFor="let plan of subscription?.plans">
+        <app-card [plan]="plan" [editable]="editable"
+            (buyEvent)="buyEvent(subscription?.subscriptionId, subscription?.subscriptionName, plan)"></app-card>
+    </ng-container>
+</ng-container> -->
+
+<ng-container *ngFor="let subscription of subscriptions">
+    <h2>{{subscription?.subscriptionName}}</h2>
+    <ng-container *ngFor="let plan of subscription?.plans">
+        <app-card [plan]="plan" [editable]="editable"
+            (buyEvent)="subscription && buyEvent(subscription.subscriptionId, subscription.subscriptionName, plan)"></app-card>
     </ng-container>
 </ng-container>
