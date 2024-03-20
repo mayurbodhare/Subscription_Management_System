@@ -17,11 +17,15 @@ export class AdminService {
 
   updateSubscription(
     subscriptionId: number,
-    planDTO: PlanDTO
+    subscriptionDTO: SubscriptionDTO
   ): Observable<any> {
     return this.http.put<any>(`${this.url}/${subscriptionId}`, {
       subscriptionId,
-      planDTO,
+      subscriptionDTO,
     });
+  }
+
+  updatePlan(planDTO: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/updateplan`, planDTO);
   }
 }

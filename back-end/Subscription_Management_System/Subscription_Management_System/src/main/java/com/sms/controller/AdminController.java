@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sms.dto.PlanDTO;
 import com.sms.dto.SubscriptionDTO;
+import com.sms.service.PlanService;
 import com.sms.service.SubscriptionService;
 import com.sms.vo.SubscriptionPlanListVO;
 
@@ -26,6 +28,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AdminController {
 	@Autowired
 	private SubscriptionService subscriptionService;
+	
+	@Autowired
+	private PlanService planService;
 
 	@PostMapping("")
 	public SubscriptionPlanListVO createSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
@@ -51,5 +56,10 @@ public class AdminController {
 	public SubscriptionPlanListVO deleteSubscription(@PathVariable Integer subscriptionId) {
 		return subscriptionService.deleteSubscription(subscriptionId);
 	}
-
+	
+	@PostMapping("updateplan")
+	public boolean updatePlan(@RequestBody PlanDTO planDTO) {
+		log.info(planDTO.toString());
+		return planService.updatePlan(planDTO);
+	}
 }

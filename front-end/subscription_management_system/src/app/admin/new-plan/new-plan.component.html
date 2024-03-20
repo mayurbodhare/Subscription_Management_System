@@ -1,0 +1,41 @@
+<!-- <form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Plan Name" [(ngModel)]="planName" name="planName">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput type="number" placeholder="Price" [(ngModel)]="price" name="price">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput type="number" placeholder="Duration" [(ngModel)]="duration" name="duration">
+    </mat-form-field>
+
+    <mat-checkbox class="example-full-width" [(ngModel)]="upgradable" name="upgradable">Upgradable</mat-checkbox>
+
+    <button mat-raised-button color="primary" (click)="addNewPlan()">Submit</button>
+    <button mat-raised-button color="primary" (click)="submitForm()">Submit</button>
+</form> -->
+
+<!-- new-plan.component.html -->
+
+<form [formGroup]="newPlanForm" (ngSubmit)="submitForm()">
+    <mat-form-field>
+        <mat-label>Plan Name</mat-label>
+        <input matInput formControlName="planName">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" type="number">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Duration</mat-label>
+        <input matInput formControlName="duration" type="number">
+    </mat-form-field>
+
+    <mat-checkbox formControlName="upgradable">Upgradable</mat-checkbox>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="newPlanForm.invalid">Submit</button>
+</form>
