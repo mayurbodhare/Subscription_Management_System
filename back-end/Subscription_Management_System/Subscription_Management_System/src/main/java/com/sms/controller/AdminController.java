@@ -33,7 +33,7 @@ public class AdminController {
 	public SubscriptionPlanListVO createSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
 		return subscriptionService.addNewSubScription(subscriptionDTO);
 	}
-	
+
 	@GetMapping("")
 	public List<SubscriptionDTO> getAllSubscription() {
 		return subscriptionService.getAllSubscription();

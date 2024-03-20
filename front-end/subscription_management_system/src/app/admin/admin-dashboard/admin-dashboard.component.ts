@@ -30,8 +30,14 @@ export class AdminDashboardComponent implements OnInit {
         this.subscriptions = response;
       });
   }
-  onButtonClick(plan: PlanDTO) {
-    this.selectedPlan = plan;
-    this.router.navigate(['/planform', plan.planId]);
+
+  // onNavigateToEdit(planId: number) {
+  //   this.router.navigate(['/plan', planId, 'edit']);
+  // }
+  onNavigateToEdit(selectedPlan: any) {
+    console.log(selectedPlan);
+    this.router.navigate(['/plan', selectedPlan.planId, 'edit'], {
+      state: { selectedPlan },
+    }); // Navigation with state
   }
 }

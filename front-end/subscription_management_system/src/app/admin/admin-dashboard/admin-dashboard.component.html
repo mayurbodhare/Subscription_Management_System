@@ -1,6 +1,6 @@
 <ng-container *ngFor="let subscription of subscriptions">
     <h2>{{subscription.subscriptionName}}</h2>
     <ng-container *ngFor="let plan of subscription.plans">
-        <app-card [plan]="plan" [editable]="editable"></app-card>
+        <app-card [plan]="plan" [editable]="editable" (navigateToEdit)="onNavigateToEdit($event)"></app-card>
     </ng-container>
 </ng-container>

@@ -13,5 +13,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'active', component: ActiveSubscriptionsComponent},
   { path: 'admindashboard', component: AdminDashboardComponent },
-  { path: 'planform', component: PlanFormComponent },
+  { path: 'plan/:planId/edit', component: PlanFormComponent },
 ];
