@@ -47,6 +47,7 @@ export class PlanFormComponent {
     });
   }
   onBuyClick() {
+    console.log(this.plan);
     this.adminService
       .updateSubscription(this.subscriptionId, this.plan)
       .subscribe((response) => {

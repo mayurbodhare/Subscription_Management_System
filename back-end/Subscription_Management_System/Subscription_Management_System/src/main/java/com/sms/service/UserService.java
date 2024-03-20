@@ -154,7 +154,9 @@ public class UserService {
 		}
 		UserEntity userEntity = userDAO.getUser(relationDTO.getEmailId());
 		UserDTO userDTO = mapper.map(userEntity, UserDTO.class);
+		userDTO.setSubscriptions(this.getActiveSubscriptions(relationDTO.getEmailId()));
 		userVO.setUserDTO(userDTO);
+		
 		return userVO;
 	}
 
