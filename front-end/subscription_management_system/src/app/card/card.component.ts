@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { PlanDTO } from '../../interface/PlanDTO';
 import { CapitalizePipe } from '../capitalize.pipe';
 
-@Component({
+@Component({ 
   selector: 'app-card',
   standalone: true,
   imports: [MatCardModule, MatButtonModule, CapitalizePipe],
@@ -12,11 +12,11 @@ import { CapitalizePipe } from '../capitalize.pipe';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
+  constructor() {}
   @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
   @Input() title!: string;
-  
-  @Output() buyEvent = new EventEmitter;
+  @Output() buyEvent = new EventEmitter();
   @Input() onButtonClick() {
     this.buyEvent.emit(this.plan);
   }

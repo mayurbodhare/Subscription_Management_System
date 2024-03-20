@@ -18,7 +18,7 @@ export class UserService {
   allSubscriptions!: SubscriptionDTO[];
   activeSubscription !: ActiveSubscriptionDTO[];
   constructor(private http: HttpClient) {}
-  url = 'http://192.168.5.110';
+  url = 'http://192.168.5.109';
 
   loginUser(email: any, password: any): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(`${this.url}/user/login`, {

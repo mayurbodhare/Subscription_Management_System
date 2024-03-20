@@ -30,8 +30,14 @@ export class AdminDashboardComponent implements OnInit {
         this.subscriptions = response;
       });
   }
-  onButtonClick(plan: PlanDTO) {
-    this.selectedPlan = plan;
-    this.router.navigate(['/planform', plan.planId]);
+
+  buyEvent(subscriptionId: number, subscriptionName: string, plan: PlanDTO) {
+    this.router.navigate(['/planform'], {
+      queryParams: {
+        subscriptionId: subscriptionId,
+        subscriptionName: subscriptionName,
+        plan: JSON.stringify(plan),
+      },
+    });
   }
 }

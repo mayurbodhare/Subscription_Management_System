@@ -19,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-
 @RestController
 @RequestMapping("admin")
 @CrossOrigin
@@ -33,7 +31,7 @@ public class AdminController {
 	public SubscriptionPlanListVO createSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
 		return subscriptionService.addNewSubScription(subscriptionDTO);
 	}
-	
+
 	@GetMapping("")
 	public List<SubscriptionDTO> getAllSubscription() {
 		return subscriptionService.getAllSubscription();
