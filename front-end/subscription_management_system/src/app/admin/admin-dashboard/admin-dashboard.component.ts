@@ -40,4 +40,13 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
+
+  addNewPlan(subscriptionId: number, subscriptionName: string) {
+    this.router.navigate(['/newplan'], {
+      queryParams: {
+        subscriptionId: subscriptionId,
+        subscriptionName: subscriptionName,
+      },
+    });
+  }
 }

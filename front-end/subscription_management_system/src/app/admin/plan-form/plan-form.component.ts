@@ -2,14 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CardComponent } from '../../card/card.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
 import { PlanDTO } from '../../../interface/PlanDTO';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
 
 @Component({
@@ -36,7 +35,8 @@ export class PlanFormComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,10 +48,9 @@ export class PlanFormComponent {
   }
   onBuyClick() {
     console.log(this.plan);
-    this.adminService
-      .updateSubscription(this.subscriptionId, this.plan)
-      .subscribe((response) => {
-        console.log(response);
-      });
+    this.adminService.updatePlan(this.plan).subscribe((response) => {
+      console.log(response);
+      this.router.navigate(['/admindashboard']);
+    });
   }
 }

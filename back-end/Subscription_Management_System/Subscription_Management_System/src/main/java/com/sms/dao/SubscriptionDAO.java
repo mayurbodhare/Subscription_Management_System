@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
 
+import com.sms.entity.PlanEntity;
 import com.sms.entity.SubscriptionEntity;
 import com.sms.repository.SubscriptionRepository;
 
@@ -43,6 +44,7 @@ public class SubscriptionDAO {
 		subscriptionRepository.deleteById(subscriptionId);		
 	}
 
+	
 
 
 }
