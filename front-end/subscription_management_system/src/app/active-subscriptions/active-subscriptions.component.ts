@@ -49,7 +49,7 @@ export class ActiveSubscriptionsComponent implements OnInit {
   activeSubscriptions: ActiveSubscriptionDTO[] =
     this.userService.activeSubscription;
     relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
-
+    errorMessage = '';
   ngOnInit(): void {
     console.log(this.userService.loggedInUser);
     this.userService.getActiveSubscriptions().subscribe((res) => {
@@ -69,8 +69,21 @@ export class ActiveSubscriptionsComponent implements OnInit {
     this.relationDTO.startDate = this.dateFormatPipe.transform(new Date());
     this.userService.cancelSubscriptiopn(this.relationDTO).subscribe((response) => {
       console.log(response);
-      this.userService.activeSubscription = response.userDTO.subscriptions;
-      this.activeSubscriptions = response.userDTO.subscriptions;
+      if (response.status === 1) {
+        this.userService.activeSubscription = response.userDTO.subscriptions;
+        this.activeSubscriptions = response.userDTO.subscriptions;
+        this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2000);
+      }
+      else{
+        this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2000);
+      }
+      
     });
   }
 }

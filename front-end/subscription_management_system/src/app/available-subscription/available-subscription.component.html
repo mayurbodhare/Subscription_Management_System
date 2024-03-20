@@ -1,3 +1,8 @@
+@if (errorMessage !== '') {
+    <mat-card class="error">
+      <mat-card-content>{{errorMessage}}</mat-card-content>
+    </mat-card>
+  } 
 <div class="subscriptions-container">
     <h2>Welcome ! {{ loggedInUser.firstName + ' ' + loggedInUser.lastName}}</h2>
     <h1>Available Subscriptions</h1>
@@ -9,7 +14,7 @@
           <div class="plans-container">
             <div class="plan-cards">
               @for (plan of subscription.plans; track $index) {
-                <app-card  [plan]="plan" class="plan-card mat-card" (buyEvent)="buySubscription(subscription, plan)" [buyTitle]="'BUY'"></app-card>
+                <app-card  [plan]="plan" class="plan-card mat-card" (buyEvent)="buySubscription(subscription, plan)" [title]="'BUY'"></app-card>
               }
             </div>
           </div>

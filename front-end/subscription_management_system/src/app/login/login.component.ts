@@ -56,7 +56,6 @@ export class LoginComponent {
           this.userService.loggedInUser = this.userDTO;
           this.userService.activeSubscription = response.userDTO.subscriptions;
           this.router.navigate(['/dashboard']);
-          // this.router.navigate(['/active']);
         }
         else{
           this.errorMessage = response.message;

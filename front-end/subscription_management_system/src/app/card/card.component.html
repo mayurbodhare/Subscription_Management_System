@@ -9,11 +9,8 @@
         </div>
     </mat-card-content>
     <mat-card-actions class="actions">
-        @if (buyTitle !== "") {
-            <button mat-raised-button color="primary" (click)="onBuyClick()">{{buyTitle | capitalize}}</button>
-        }
-        @if (upgradeTitle !== "") {
-            <button mat-raised-button color="primary" (click)="onUpgradeClick()">{{upgradeTitle | capitalize}}</button>
+        @if (title !== "") {
+            <button mat-raised-button color="primary" (click)="onButtonClick()">{{title | capitalize}}</button>
         }
         @if (removeTitle !== "") {
             <button mat-raised-button color="warn" (click)="onCancelClick()">{{removeTitle | capitalize}}</button>

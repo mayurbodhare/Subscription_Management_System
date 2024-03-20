@@ -46,7 +46,7 @@ export class AvailableSubscriptionComponent implements OnInit {
   allSubscriptions!: SubscriptionDTO[];
  
   relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
-
+  errorMessage = '';
   ngOnInit(): void {
     this.userService.getAllSubscriptions().subscribe((res) => {
       console.log(res);
@@ -56,7 +56,7 @@ export class AvailableSubscriptionComponent implements OnInit {
     });
   }
   buySubscription(subscription:SubscriptionDTO ,plan:PlanDTO) {
-    console.log(plan);
+    
     this.relationDTO.emailId = this.loggedInUser.email;
     this.relationDTO.subscriptionEntity = subscription;
     this.relationDTO.planEntity = plan;
@@ -64,7 +64,18 @@ export class AvailableSubscriptionComponent implements OnInit {
     
     this.userService.buySubscription(this.relationDTO).subscribe((response) => {
       console.log(response);
-      this.userService.activeSubscription = response.userDTO.subscriptions;
+      if(response.status === 1){
+        this.userService.activeSubscription = response.userDTO.subscriptions;
+        this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2000);
+      }else{
+        this.errorMessage = response.message;
+          setTimeout(() => {
+            this.errorMessage = '';
+          }, 2000);
+      }
     });
     
  }
