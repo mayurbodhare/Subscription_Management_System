@@ -15,6 +15,16 @@ import { RelationDTO } from '../../interface/RelationDTO';
 import { PlanDTO } from '../../interface/PlanDTO';
 import { DateFormatPipe } from '../date-format.pipe';
 
+class RelationDTOImpl implements RelationDTO {
+  constructor(
+    public emailId: string,
+    public startDate: string,
+    public endDate: string | undefined,
+    public subscriptionEntity: any,
+    public planEntity: any
+  ) {}
+}
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -31,13 +41,17 @@ import { DateFormatPipe } from '../date-format.pipe';
     MatCardContent,
   ],
 })
+
+
+
 export class DashboardComponent implements OnInit {
 
   constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
   allSubscriptions!: SubscriptionDTO[];
  
-  relationDTO!:RelationDTO;
+  relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
+
   ngOnInit(): void {
     this.userService.getAllSubscriptions().subscribe((res) => {
       console.log(res);
@@ -54,7 +68,8 @@ export class DashboardComponent implements OnInit {
     this.relationDTO.startDate = this.dateFormatPipe.transform(new Date());
 
     this.userService.buySubscription(this.relationDTO).subscribe((response) => {
-      
+      console.log(response);
+      this.userService.activeSubscription = response.userDTO.subscriptions;
     });
     
  }

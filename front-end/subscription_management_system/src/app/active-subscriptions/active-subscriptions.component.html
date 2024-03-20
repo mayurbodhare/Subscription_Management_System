@@ -8,7 +8,7 @@
                 <h1>{{ subscription.subscriptionDTO.subscriptionName| capitalize }}</h1>
                 <div class="plans-container">
                     <div class="plan-cards">
-                        <app-card  [plan]="subscription.planDTO" class="plan-card mat-card"></app-card>
+                        <app-card  [plan]="subscription.planDTO" class="plan-card mat-card" [title]="'upgrade'"></app-card>
             </div>
           </div>
         </mat-card-content>

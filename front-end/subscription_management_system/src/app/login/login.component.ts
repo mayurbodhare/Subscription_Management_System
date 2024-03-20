@@ -53,9 +53,9 @@ export class LoginComponent {
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
         this.userService.activeSubscription = response.userDTO.subscriptions;
-        this.router.navigate(['/dashboard']);
-        // this.router.navigate(['/active']);
-
+        // this.router.navigate(['/dashboard']);
+        this.router.navigate(['/active']);
+        
       });
   }
 }

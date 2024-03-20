@@ -35,7 +35,6 @@ export class ActiveSubscriptionsComponent implements OnInit{
   activeSubscriptions: ActiveSubscriptionDTO[] = this.userService.activeSubscription;
   ngOnInit(): void {
     console.log(this.userService.loggedInUser);
-    
   }
 
 }
