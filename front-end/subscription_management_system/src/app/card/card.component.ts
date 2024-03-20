@@ -15,9 +15,8 @@ export class CardComponent {
   constructor(private router: Router) {}
   @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
-  @Output() navigateToEdit = new EventEmitter<any>();
-
-  onButtonClick() {
-    this.navigateToEdit.emit(this.plan); 
+  @Output() buyEvent = new EventEmitter;
+  @Input() onButtonClick() {
+    this.buyEvent.emit(this.plan);
   }
 }

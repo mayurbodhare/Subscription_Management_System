@@ -6,11 +6,13 @@ import { UserDTO } from '../interface/userDTO';
 import { Observable, Subscription } from 'rxjs';
 import { SubscriptionDTO } from '../interface/subscriptionDTO';
 import { ActiveSubscriptionDTO } from '../interface/ActiveSubscriptionDTO';
+import { RelationDTO } from '../interface/RelationDTO';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+ 
   loginResponse: any;
   loggedInUser!: UserDTO;
   allSubscriptions!: SubscriptionDTO[];
@@ -33,7 +35,11 @@ export class UserService {
     return this.http.get<SubscriptionDTO[]>(`${this.url}/admin`);
   }
 
-  getActiveSubscriptions(): Observable<SubscriptionDTO[]>{
-    return this.http.get<SubscriptionDTO[]>(`${this.url}/user/active`);
+  getActiveSubscriptions(): Observable<ActiveSubscriptionDTO[]>{
+    return this.http.get<ActiveSubscriptionDTO[]>(`${this.url}/user/active`);
+  }
+
+  buySubscription(relationDTO: RelationDTO): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.url}/user/buy`, relationDTO);
   }
 }

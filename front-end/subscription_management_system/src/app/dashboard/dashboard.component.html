@@ -9,7 +9,7 @@
           <div class="plans-container">
             <div class="plan-cards">
               @for (plan of subscription.plans; track $index) {
-                <app-card  [plan]="plan" class="plan-card mat-card"></app-card>
+                <app-card  [plan]="plan" class="plan-card mat-card" (buyEvent)="buySubscription(subscription, plan)"></app-card>
               }
             </div>
           </div>
