@@ -44,17 +44,20 @@ export class LoginComponent {
   password = '';
   userDTO!: UserDTO;
   errorMessage = '';
-  loginUser() {
+  async loginUser() {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
 
-    this.userService
+    await this.userService
       .loginUser(this.email, this.password)
-      .subscribe((response) => {
+      .subscribe(async (response) => {
         if(response.status == 1){  
           this.userDTO = response.userDTO;
           this.userService.loggedInUser = this.userDTO;
+          
           this.userService.activeSubscription = response.userDTO.subscriptions;
+          await this.userService.transformSubscription();
+          // setTimeout(() => {}, 2000)
           this.router.navigate(['/dashboard']);
         }
         else{

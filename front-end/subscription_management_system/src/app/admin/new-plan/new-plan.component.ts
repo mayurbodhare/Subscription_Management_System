@@ -39,6 +39,7 @@ export class NewPlanComponent implements OnInit {
     subscriptionId: this.subscriptionId,
     subscriptionName: this.subscriptionName,
     plans: [],
+    subscribed: false
   };
 
   constructor(
@@ -60,6 +61,13 @@ export class NewPlanComponent implements OnInit {
       duration: [null, Validators.required],
       upgradable: [false],
     });
+
+    this.subscription = {
+      subscriptionId: this.subscriptionId,
+      subscriptionName: this.subscriptionName,
+      subscribed: false,
+      plans: [],
+    };
   }
 
   submitForm() {
@@ -73,6 +81,7 @@ export class NewPlanComponent implements OnInit {
           subscriptionId: this.subscriptionId,
           subscriptionName: this.subscriptionName,
           plans: this.subscription.plans,
+          subscribed: false
         })
         .subscribe((response: any) => {
           console.log(response);

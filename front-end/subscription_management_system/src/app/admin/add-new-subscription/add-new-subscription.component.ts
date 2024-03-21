@@ -38,6 +38,7 @@ export class AddNewSubscriptionComponent implements OnInit {
     subscriptionId: 0,
     subscriptionName: '',
     plans: [],
+    subscribed: false
   };
 
   constructor(
