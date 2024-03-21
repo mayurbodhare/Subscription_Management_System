@@ -99,6 +99,7 @@ export class NewPlanComponent implements OnInit {
     this.subscription = {
       subscriptionId: this.subscriptionId,
       subscriptionName: this.subscriptionName,
+      subscribed: false,
       plans: [],
     };
   }

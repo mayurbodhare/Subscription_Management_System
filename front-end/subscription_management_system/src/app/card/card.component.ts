@@ -12,7 +12,7 @@ import { CapitalizePipe } from '../capitalize.pipe';
   styleUrl: './card.component.css',
 })
 export class CardComponent {
-  constructor() {}
+  constructor() {  }
   @Input() editable: boolean = false;
   @Input() plan!: PlanDTO;
   @Input() title: string = "";

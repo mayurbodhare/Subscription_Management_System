@@ -59,8 +59,7 @@ export class SignUpComponent {
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
         this.userDTO.password = '';
-        // this.router.navigate(['/dashboard']);
-        this.router.navigate(['/active']);
+        this.router.navigate(['/dashboard']);
       }
       else{
         this.errorMessage = res.message;
