@@ -1,10 +1,14 @@
+<ng-container >
+    <button mat-raised-button color="primary" (click)="addNewSubscription()">Add New Subscription</button>
+</ng-container>
 <ng-container *ngFor="let subscription of subscriptions">
+
     <h2>{{subscription?.subscriptionName}}</h2>
-    <button mat-button color="primary"
+    <button mat-raised-button color="primary"
         (click)="addNewPlan(subscription.subscriptionId,subscription.subscriptionName)">Add New Plan</button>
 
     <ng-container *ngFor="let plan of subscription?.plans">
-        <app-card [plan]="plan" [editable]="editable"
+        <app-card [title]="'Edit'" [plan]="plan" [editable]="editable"
             (buyEvent)="subscription && buyEvent(subscription.subscriptionId, subscription.subscriptionName, plan)"></app-card>
     </ng-container>
 </ng-container>

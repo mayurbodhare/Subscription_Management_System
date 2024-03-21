@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,17 +7,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AdminService } from '../../../services/admin.service';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
+import { Router } from '@angular/router';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
-  selector: 'app-new-plan',
+  selector: 'app-add-new-subscription',
   standalone: true,
   imports: [
     MatFormField,
@@ -28,33 +28,26 @@ import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
     MatInputModule,
     MatButtonModule,
   ],
-  templateUrl: './new-plan.component.html',
-  styleUrl: './new-plan.component.css',
+  templateUrl: './add-new-subscription.component.html',
+  styleUrl: './add-new-subscription.component.css',
 })
-export class NewPlanComponent implements OnInit {
+export class AddNewSubscriptionComponent implements OnInit {
   newPlanForm!: FormGroup;
-  subscriptionId!: number;
-  subscriptionName!: string;
+
   subscription: SubscriptionDTO = {
-    subscriptionId: this.subscriptionId,
-    subscriptionName: this.subscriptionName,
+    subscriptionId: 0,
+    subscriptionName: '',
     plans: [],
   };
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
     private router: Router,
     private adminService: AdminService
   ) {}
-
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.subscriptionId = params['subscriptionId'];
-      this.subscriptionName = params['subscriptionName'];
-    });
-
     this.newPlanForm = this.formBuilder.group({
+      subscriptionName: ['', Validators.required],
       planName: ['', Validators.required],
       price: [null, Validators.required],
       duration: [null, Validators.required],
@@ -66,15 +59,15 @@ export class NewPlanComponent implements OnInit {
     if (this.newPlanForm.valid) {
       const formData = this.newPlanForm.value;
       console.log(formData);
+      this.subscription.subscriptionName = formData.subscriptionName;
+      delete formData.subscriptionName;
+      console.log(formData);
       this.subscription.plans.push(formData);
+
       console.log(this.subscription);
       this.adminService
-        .updateSubscription(this.subscriptionId, {
-          subscriptionId: this.subscriptionId,
-          subscriptionName: this.subscriptionName,
-          plans: this.subscription.plans,
-        })
-        .subscribe((response: any) => {
+        .createSubscription(this.subscription)
+        .subscribe((response) => {
           console.log(response);
         });
     }

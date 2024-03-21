@@ -34,6 +34,7 @@ public class AdminController {
 
 	@PostMapping("")
 	public SubscriptionPlanListVO createSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
+		log.info(subscriptionDTO.toString());
 		return subscriptionService.addNewSubScription(subscriptionDTO);
 	}
 
@@ -49,6 +50,7 @@ public class AdminController {
 	@PutMapping("{subscriptionId}")
 	public SubscriptionPlanListVO updateSubscription(@PathVariable Integer subscriptionId, @RequestBody SubscriptionDTO subscriptionDTO) {
 		log.info("Inside updateSubscription");
+		log.info(subscriptionDTO.toString());
 		return subscriptionService.updateSubscription(subscriptionId, subscriptionDTO);
 	}
 	

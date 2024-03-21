@@ -7,13 +7,14 @@ import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
 import { CardComponent } from '../../card/card.component';
 import { Router } from '@angular/router';
 import { PlanDTO } from '../../../interface/PlanDTO';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
-  imports: [MatCardModule, CommonModule, FormsModule, CardComponent],
+  imports: [MatCardModule, CommonModule, FormsModule, CardComponent, MatButtonModule],
 })
 export class AdminDashboardComponent implements OnInit {
   subscriptions: SubscriptionDTO[] = [];
@@ -48,5 +49,8 @@ export class AdminDashboardComponent implements OnInit {
         subscriptionName: subscriptionName,
       },
     });
+  }
+  addNewSubscription(){
+    this.router.navigate(['/newsubscription'])
   }
 }

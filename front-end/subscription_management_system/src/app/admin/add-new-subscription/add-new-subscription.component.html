@@ -1,6 +1,11 @@
 <div class="container">
-    <h2>Add New Plan</h2>
+    <h2>Add New Subscription</h2>
     <form [formGroup]="newPlanForm" (ngSubmit)="submitForm()" class="form-container">
+        <mat-form-field class="form-field">
+            <mat-label>Subscription Name</mat-label>
+            <input matInput formControlName="subscriptionName">
+        </mat-form-field>
+        
         <mat-form-field class="form-field">
             <mat-label>Plan Name</mat-label>
             <input matInput formControlName="planName">

@@ -1,0 +1,17 @@
+.container {
+  text-align: center;
+}
+
+.form-container {
+  display: inline-block;
+  text-align: left;
+}
+
+.form-field {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.centered {
+  text-align: center;
+}

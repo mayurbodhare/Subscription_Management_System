@@ -36,6 +36,7 @@ public class SubscriptionService {
 	public SubscriptionPlanListVO addNewSubScription(SubscriptionDTO subscriptionDTO) {
 
 		SubscriptionPlanListVO subscriptionPlanListVO = new SubscriptionPlanListVO(null, null, null);
+		subscriptionDTO.setSubscriptionId(null);
 
 		if (this.subscriptionNameIsExists(subscriptionDTO.getSubscriptionName().toLowerCase())) {
 			subscriptionPlanListVO

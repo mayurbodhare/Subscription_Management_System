@@ -8,6 +8,7 @@ import { PlanFormComponent } from './admin/plan-form/plan-form.component';
 import { PaymentComponent } from './payment/payment.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { NewPlanComponent } from './admin/new-plan/new-plan.component';
+import { AddNewSubscriptionComponent } from './admin/add-new-subscription/add-new-subscription.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/landing', pathMatch: 'full' },
@@ -20,4 +21,5 @@ export const routes: Routes = [
   { path: 'planform', component: PlanFormComponent },
   { path: 'payment', component: PaymentComponent },
   { path: 'newplan', component: NewPlanComponent },
+  { path: 'newsubscription', component: AddNewSubscriptionComponent },
 ];
