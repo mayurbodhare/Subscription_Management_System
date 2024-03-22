@@ -7,6 +7,7 @@
         <p>Amount: {{ amount }}</p>
       </mat-card-content>
       <mat-card-actions class="button-container">
+        <button mat-stroked-button (click)="handleBack()">Back</button>
         <button mat-button color="primary" (click)="handleClick()">Pay</button>
       </mat-card-actions>
     </mat-card>

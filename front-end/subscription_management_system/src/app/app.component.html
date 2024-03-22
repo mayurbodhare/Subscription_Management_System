@@ -1,6 +1,9 @@
 <p>
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="container">
         <span>My Application</span>
+        @if (currentUser !== emptyUser) {
+            <button mat-raised-button (click)="handleClick()">Logout</button>
+        }
     </mat-toolbar>
 </p>
 <router-outlet></router-outlet>

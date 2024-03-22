@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
 import { LoginComponent } from '../login/login.component';
 import { SignUpComponent } from '../sign-up/sign-up.component';
+import { UserDTO } from '../../interface/userDTO';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,5 +12,7 @@ import { SignUpComponent } from '../sign-up/sign-up.component';
   styleUrl: './landing-page.component.css'
 })
 export class LandingPageComponent {
+  @Input() currentUser!: UserDTO;
+  @Input() userExist: boolean = false;
 
 }

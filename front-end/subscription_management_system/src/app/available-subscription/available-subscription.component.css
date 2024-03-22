@@ -33,8 +33,32 @@
   .subscriptions-container{
     margin: 3rem;
     padding: 3rem;
+    width: 60%;
   }
 
   .error{
     margin: 2rem 2rem 0 2rem;
   }
+
+  .plan-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+  }
+  
+  .plan-card {
+    flex: 0 0 calc(33.33% - 10px); /* Adjust the width to fit three cards in a row with 10px spacing */
+    margin-bottom: 20px; /* Adjust margin between rows */
+  }
+  
+  .subscription-wrapper {
+    margin-bottom: 20px; /* Adjust margin between subscription sections */
+  }
+  .center {
+    height: 100%; /* Ensure full height of the viewport */
+    margin: 0; /* Remove default margin */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+ 

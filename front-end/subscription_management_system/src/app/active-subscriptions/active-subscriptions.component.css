@@ -16,14 +16,15 @@
     padding: 10px;
   }
   
-  .plans-container {
+  .card {
     display: flex;
     overflow-x: auto;
+    align-content: space-evenly
   }
   
   .plan-cards {
     display: flex;
-    align-content: space-evenly
+    
   }
   
   .plan-card {
