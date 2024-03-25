@@ -1,4 +1,4 @@
-<mat-card class="custom-card">
+<!-- <mat-card class="custom-card">
     <mat-card-header>
         <mat-card-title>
             <input type="text" [(ngModel)]="subscriptionName" class="subscription-name-input">
@@ -24,19 +24,29 @@
     </mat-card-actions>
 </mat-card>
 
+ -->
 
-<!-- <mat-card>
+<mat-card class="custom-card">
     <mat-card-header>
-      <mat-card-title>Name</mat-card-title>
-      <mat-card-subtitle>Plans</mat-card-subtitle>
+        <mat-card-title>
+            {{ subscriptionName | capitalize }}
+        </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
-      <p>Price: 199</p>
-      <p>Duration: 1</p>
-      <p>Upgradable: false</p>
+    <mat-card-content *ngIf="plan">
+        <mat-form-field class="input-field">
+            <input matInput [(ngModel)]="plan.planName" placeholder="Plan Name">
+        </mat-form-field>
+        <mat-form-field class="input-field">
+            <input matInput [(ngModel)]="plan.price" type="number" placeholder="Price">
+        </mat-form-field>
+        <mat-form-field class="input-field">
+            <input matInput [(ngModel)]="plan.duration" placeholder="Duration">
+        </mat-form-field>
+        <div class="centered">
+            <mat-checkbox [(ngModel)]="plan.upgradable" class="checkbox-field">Upgradable</mat-checkbox>
+        </div>
     </mat-card-content>
-    <mat-card-actions>
-      <mat-slide-toggle [(ngModel)]="activated">Activated</mat-slide-toggle>
+    <mat-card-actions class="centered">
+        <button mat-raised-button color="primary" *ngIf="editable" (click)="onBuyClick()" class="save-button">Save</button>
     </mat-card-actions>
-  </mat-card>
-   -->
+</mat-card>

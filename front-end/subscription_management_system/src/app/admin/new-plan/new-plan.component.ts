@@ -85,6 +85,7 @@ export class NewPlanComponent implements OnInit {
         })
         .subscribe((response: any) => {
           console.log(response);
+          this.router.navigate(['/admindashboard'])
         });
     }
   }

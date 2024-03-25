@@ -10,26 +10,30 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CapitalizePipe } from "../../capitalize.pipe";
 
 @Component({
-  selector: 'app-plan-form',
-  standalone: true,
-  imports: [
-    CardComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-  ],
-  templateUrl: './plan-form.component.html',
-  styleUrl: './plan-form.component.css',
+    selector: 'app-plan-form',
+    standalone: true,
+    templateUrl: './plan-form.component.html',
+    styleUrl: './plan-form.component.css',
+    imports: [
+        CardComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSlideToggleModule,
+        CommonModule,
+        FormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        CapitalizePipe
+    ]
 })
 export class PlanFormComponent {
   subscriptionId!: number;
-  subscriptionName: string | undefined;
+  subscriptionName!: string;
   plan!: PlanDTO;
   editable = true;
 

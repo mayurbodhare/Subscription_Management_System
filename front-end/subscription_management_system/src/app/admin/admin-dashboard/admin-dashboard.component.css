@@ -1,44 +1,78 @@
-.example-card {
-  width: 300px;
-  background-color: #f0f0f0;
+.add-subscription-container {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right end */
+  margin-bottom: 20px;
+}
+.new-subscription{
+  margin-bottom: 10px;
+}
+
+.subscription-card {
+  width: calc(100% - 32px); /* Subtracting padding */
+  background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 16px;
+  margin-left: 16px;
 }
 
 .header {
   display: flex;
-  justify-content: center;
+  /* justify-content: space-between; */
+  align-items: center;
 }
 
-.actions {
+.header h2 {
+  margin: 0;
+}
+
+.plan-container {
   display: flex;
-  justify-content: center;
+  overflow-x: auto;
+  scrollbar-width: thin; /* Set the scrollbar width */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+  background-color: #ffffff;
 }
 
-.content {
-  padding: 16px;
+.plan-container::-webkit-scrollbar {
+  width: 6px; /* Set the scrollbar width */
 }
 
-.info {
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.plan-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3); /* Set the scrollbar thumb color */
+  border-radius: 3px; /* Set the scrollbar thumb border radius */
 }
 
-.price,
-.duration {
-  margin: 8px 0;
-  color: #333;
+.plan-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.1); /* Set the scrollbar track color */
 }
 
-.plans-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around; 
+.plan-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Set the scrollbar thumb color on hover */
 }
 
-.plan-card {
-  width: 200px; 
-  margin: 10px; 
+.plan-container::-webkit-scrollbar-track:hover {
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.3
+  ); /* Set the scrollbar track color on hover */
+}
+
+.app-card {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  width: 200px;
+}
+
+.add-plan-button {
+  border-radius: 50%; /* Make button round */
+  padding: 8px; /* Increase padding */
 }

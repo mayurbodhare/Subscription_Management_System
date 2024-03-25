@@ -1,5 +1,8 @@
 .container {
   text-align: center;
+  box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);
+  max-width: 35%; 
+  margin: 0 auto; 
 }
 
 .form-container {

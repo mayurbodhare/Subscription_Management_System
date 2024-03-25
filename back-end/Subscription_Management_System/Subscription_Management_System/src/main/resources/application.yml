@@ -8,7 +8,7 @@ spring :
             show-sql: true
             format-sql: true
             hibernate: 
-                  ddl-auto: update
+                  ddl-auto: create
       application: 
             name: Subscription_Management_Service
             

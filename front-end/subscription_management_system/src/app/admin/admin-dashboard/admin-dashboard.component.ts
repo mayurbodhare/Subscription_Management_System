@@ -8,13 +8,16 @@ import { CardComponent } from '../../card/card.component';
 import { Router } from '@angular/router';
 import { PlanDTO } from '../../../interface/PlanDTO';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { CapitalizePipe } from "../../capitalize.pipe";
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-admin-dashboard',
-  standalone: true,
-  templateUrl: './admin-dashboard.component.html',
-  styleUrl: './admin-dashboard.component.css',
-  imports: [MatCardModule, CommonModule, FormsModule, CardComponent, MatButtonModule],
+    selector: 'app-admin-dashboard',
+    standalone: true,
+    templateUrl: './admin-dashboard.component.html',
+    styleUrl: './admin-dashboard.component.css',
+    imports: [MatCardModule, CommonModule, FormsModule, CardComponent, MatButtonModule, MatIcon, CapitalizePipe, MatTooltip]
 })
 export class AdminDashboardComponent implements OnInit {
   subscriptions: SubscriptionDTO[] = [];

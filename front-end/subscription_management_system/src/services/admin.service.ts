@@ -8,7 +8,7 @@ import { SubscriptionDTO } from '../interface/subscriptionDTO';
 })
 export class AdminService {
   constructor(private http: HttpClient) {}
-  url = 'http://192.168.5.109/admin';
+  url = 'http://localhost/admin';
 
   getAllSubscription(): Observable<any> {
     return this.http.get<any>(`${this.url}`);

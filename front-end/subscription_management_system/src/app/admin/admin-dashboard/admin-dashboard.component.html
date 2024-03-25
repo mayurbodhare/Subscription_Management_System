@@ -1,14 +1,21 @@
-<ng-container >
-    <button mat-raised-button color="primary" (click)="addNewSubscription()">Add New Subscription</button>
+<ng-container class="add-subscription-container">
+    <button mat-raised-button class="new-subscription" color="primary" (click)="addNewSubscription()">Add New
+        Subscription</button>
 </ng-container>
 <ng-container *ngFor="let subscription of subscriptions">
-
-    <h2>{{subscription?.subscriptionName}}</h2>
-    <button mat-raised-button color="primary"
-        (click)="addNewPlan(subscription.subscriptionId,subscription.subscriptionName)">Add New Plan</button>
-
-    <ng-container *ngFor="let plan of subscription?.plans">
-        <app-card [title]="'Edit'" [plan]="plan" [editable]="editable"
-            (buyEvent)="subscription && buyEvent(subscription.subscriptionId, subscription.subscriptionName, plan)"></app-card>
-    </ng-container>
+    <mat-card class="subscription-card" raised>
+        <div class="header">
+            <h2>{{subscription.subscriptionName | capitalize}}</h2>
+            <button mat-icon-button color="primary" class="add-plan-button" matTooltip="Add Plan"
+                (click)="addNewPlan(subscription.subscriptionId, subscription.subscriptionName)">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <div class="plan-container">
+            <ng-container *ngFor="let plan of subscription?.plans">
+                <app-card [title]="'Edit'" [plan]="plan" [editable]="editable"
+                    (buyEvent)="subscription && buyEvent(subscription.subscriptionId, subscription.subscriptionName, plan)"></app-card>
+            </ng-container>
+        </div>
+    </mat-card>
 </ng-container>
