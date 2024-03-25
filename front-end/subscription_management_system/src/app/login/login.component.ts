@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormControl,
   FormGroupDirective,
@@ -44,6 +44,8 @@ export class LoginComponent {
   password = '';
   userDTO!: UserDTO;
   errorMessage = '';
+  @Input() currentUser!: UserDTO;
+  @Input() userExist: boolean = false;
   async loginUser() {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
@@ -54,7 +56,8 @@ export class LoginComponent {
         if(response.status == 1){  
           this.userDTO = response.userDTO;
           this.userService.loggedInUser = this.userDTO;
-          
+          this.currentUser = this.userDTO;
+          this.userExist = true;
           this.userService.activeSubscription = response.userDTO.subscriptions;
           await this.userService.transformSubscription();
           // setTimeout(() => {}, 2000)

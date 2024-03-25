@@ -5,15 +5,24 @@
     <mat-card-content class="content">
         <div class="info">
             <p class="price mat-body-1">Price: {{plan.price}}</p>
-            <p class="duration mat-body-1">Duration: {{plan.duration}}</p>
+            @if (title !== "") {
+                <p class="duration mat-body-1">Duration: {{plan.duration}}</p>
+            }
+            @if(removeTitle !== "") {
+                <p class="duration mat-body-1">Start Date: {{plan.startDate}}</p>
+                <p class="duration mat-body-1">End Date: {{plan.endDate}}</p>
+                @if (remainingDays != 0) {
+                    <p class="duration mat-body-1">Days Remaining: {{remainingDays}}</p>
+                }
+            }
         </div>
     </mat-card-content>
     <mat-card-actions class="actions">
         @if (title !== "") {
-            <button mat-raised-button color="primary" (click)="onButtonClick()">{{title | capitalize}}</button>
+            <button mat-raised-button color="primary"  (click)="onButtonClick()">{{title | capitalize}}</button>
         }
         @if (removeTitle !== "") {
             <button mat-raised-button color="warn" (click)="onCancelClick()">{{removeTitle | capitalize}}</button>
-        }
+        } 
     </mat-card-actions>
 </mat-card>

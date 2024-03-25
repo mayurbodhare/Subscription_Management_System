@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -10,7 +10,8 @@ import { ActiveSubscriptionsComponent } from './active-subscriptions/active-subs
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { UserService } from '../services/user.service';
-
+import { MatButton } from '@angular/material/button';
+import { UserDTO } from '../interface/userDTO';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -26,15 +27,34 @@ import { UserService } from '../services/user.service';
     AdminDashboardComponent,
     ActiveSubscriptionsComponent,
     MatIcon,
-    MatToolbar
+    MatToolbar,
+    MatButton
   ],
 })
 export class AppComponent implements OnInit{
+
   title = 'subscription_management_system';
-  constructor(private userService: UserService){}ngOnInit(): void {
+  emptyUser : UserDTO = 
+    {
+      email: "",
+      firstName: "",
+      lastName: "",
+      password:"",
+      subscriptions : []
+    };
+
+    currentUser: UserDTO = this.emptyUser;
+    userExist: boolean = false;
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute){}ngOnInit(): void {
     this.userService.getAllSubscriptions().subscribe(res => {
       this.userService.allSubscriptions = res;
+      this.currentUser = this.emptyUser;
     })
+  };
+
+  handleClick() {
+    this.router.navigate(['/landing', this.currentUser, this.userExist])
+    this.userService.loggedInUser = this.emptyUser;
+    this.currentUser = this.emptyUser;
   }
-;
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormControl,
   FormsModule,
@@ -49,6 +49,8 @@ export class SignUpComponent {
     subscriptions: [],
   };
   errorMessage = '';
+  @Input() currentUser!: UserDTO;
+  @Input() userExist: boolean = false;
   signUpUser() {
     this.userDTO.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
@@ -58,6 +60,8 @@ export class SignUpComponent {
         this.userDTO = res.userDTO;
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
+        this.currentUser = this.userDTO;
+        this.userExist = true;
         this.userDTO.password = '';
         this.router.navigate(['/dashboard']);
       }

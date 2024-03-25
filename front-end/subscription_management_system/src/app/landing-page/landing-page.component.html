@@ -1,4 +1,4 @@
 <mat-tab-group animationDuration="1000ms">
-    <mat-tab label="Login"> <app-login></app-login> </mat-tab>
-    <mat-tab label="SignUp"> <app-sign-up></app-sign-up> </mat-tab>
+    <mat-tab label="Login"> <app-login [currentUser]="currentUser" [userExist]="userExist"></app-login> </mat-tab>
+    <mat-tab label="SignUp"> <app-sign-up [currentUser]="currentUser" [userExist]="userExist"></app-sign-up> </mat-tab>
   </mat-tab-group>

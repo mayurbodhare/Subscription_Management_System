@@ -4,33 +4,38 @@
   </mat-card>
 } 
 @if (amount != 0) {
-  <app-payment [amount]="amount" (buyEvent) = "buySubscription(clickedSubscription, clickedPlan)"></app-payment>
+  <app-payment [amount]="amount" (buyEvent) = "buySubscription(clickedSubscription, clickedPlan)" (backEvent) = "handleBack()"></app-payment>
 }
 @else {
-<div class="subscriptions-container">
+  <div class="subscriptions-container">
     <h2>Welcome ! {{ loggedInUser.firstName + ' ' + loggedInUser.lastName}}</h2>
     <h1>Available Subscriptions</h1>
     @for (subscription of allSubscriptions; track $index) {
-      <div class="subscription-wrapper mat-elevation-z4" >
+      <div class="subscription-wrapper mat-elevation-z4">
         <div class="jumbotron">
           <h1>{{ subscription.subscriptionName | capitalize }}</h1>
-        <mat-card-content class="subscription-content">
-          <div class="plans-container">
-            <div class="plan-cards">
-              @for (plan of subscription.plans; track $index) {
-                @if (subscription.subscribed) {
-                  <app-card  [plan]="plan" class="plan-card mat-card"  (click)="handleClick(subscription, plan)"   [title]="'UPGRADE'"></app-card>
+          <mat-card-content class="subscription-content">
+            <div class="plans-container">
+              <div class="plan-cards">
+                @for (plan of subscription.plans; track $index) {
+                  @if (subscription.subscribed) {
+                    @if (currentSubscription && currentSubscription.planDTO.price < plan.price) {
+                      <app-card [plan]="plan" class="plan-card mat-card" (click)="handleClick(subscription, plan)" [title]="'UPGRADE'"></app-card>
+                    }
+                    @else {
+                      <app-card [plan]="plan" class="plan-card mat-card" (click)="handleClick(subscription, plan)" [disabled]="true" [title]="'UPGRADE'"></app-card>
+                    }
+                  }
+                  @else {
+                    <app-card [plan]="plan" class="plan-card mat-card" (click)="handleClick(subscription, plan)" [title]="'BUY'"></app-card>
+                  }
                 }
-                @else {
-                  <app-card  [plan]="plan" class="plan-card mat-card"  (click)="handleClick(subscription, plan)"   [title]="'BUY'"></app-card>
-                }
-                
-              }
+              </div>
             </div>
-          </div>
-        </mat-card-content>
+          </mat-card-content>
+        </div>
       </div>
-    </div>
-  }
-  </div>
+    }
+</div>
+
 }

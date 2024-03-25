@@ -45,6 +45,10 @@ export class UserService {
     return this.http.post<LoginResponseDTO>(`${this.url}/user/buy`, relationDTO);
   }
 
+  upgradeSubscription(relationDTO: RelationDTO): Observable<LoginResponseDTO> {
+    return this.http.post<LoginResponseDTO>(`${this.url}/user/upgrade`, relationDTO);
+  }
+
   cancelSubscriptiopn(relationDTO: RelationDTO): Observable<LoginResponseDTO> {
     return this.http.post<LoginResponseDTO>(`${this.url}/user/cancel`, relationDTO);
   }
@@ -68,6 +72,7 @@ export class UserService {
   // }
 
   async transformSubscription() {
+    this.availableSubscription = []
     this.allSubscriptions = this.allSubscriptions.map(subscription => {
       const isActiveSubscription = this.activeSubscription.some(activeSubscription => {
         return activeSubscription.subscriptionDTO.subscriptionId === subscription.subscriptionId;
