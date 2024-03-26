@@ -38,7 +38,7 @@ export class AddNewSubscriptionComponent implements OnInit {
     subscriptionId: 0,
     subscriptionName: '',
     plans: [],
-    subscribed: false
+    subscribed: false,
   };
 
   constructor(
@@ -55,7 +55,20 @@ export class AddNewSubscriptionComponent implements OnInit {
       upgradable: [false],
     });
   }
-
+  newPlan() {
+    if (this.newPlanForm.valid) {
+      const formData = this.newPlanForm.value;
+      this.subscription.plans.push(formData);
+      this.subscription.subscriptionName = formData.subscriptionName;
+      this.newPlanForm = this.formBuilder.group({
+        subscriptionName: [this.subscription.subscriptionName],
+        planName: ['', Validators.required],
+        price: [null, Validators.required],
+        duration: [null, Validators.required],
+        upgradable: [false],
+      });
+    }
+  }
   submitForm() {
     if (this.newPlanForm.valid) {
       const formData = this.newPlanForm.value;
@@ -70,6 +83,7 @@ export class AddNewSubscriptionComponent implements OnInit {
         .createSubscription(this.subscription)
         .subscribe((response) => {
           console.log(response);
+          this.router.navigate(['/admindashboard']);
         });
     }
   }

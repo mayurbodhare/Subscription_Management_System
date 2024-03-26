@@ -27,6 +27,7 @@
 
         <div class="centered">
             <button mat-raised-button color="primary" type="submit" [disabled]="newPlanForm.invalid">Submit</button>
+            <button mat-raised-button color="primary" type="button" (click)="newPlan()" [disabled]="newPlanForm.invalid">Add Another Plan</button>
         </div>
     </form>
 </div>

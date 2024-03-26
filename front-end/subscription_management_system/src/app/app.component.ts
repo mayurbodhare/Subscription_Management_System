@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LoginComponent } from './login/login.component';
@@ -12,6 +12,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { UserService } from '../services/user.service';
 import { MatButton } from '@angular/material/button';
 import { UserDTO } from '../interface/userDTO';
+import { LocalStorageService } from './local-storage.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -28,32 +29,52 @@ import { UserDTO } from '../interface/userDTO';
     ActiveSubscriptionsComponent,
     MatIcon,
     MatToolbar,
-    MatButton
+    MatButton,
   ],
 })
-export class AppComponent implements OnInit{
-
+export class AppComponent implements OnInit {
   title = 'subscription_management_system';
-  emptyUser : UserDTO = 
-    {
-      email: "",
-      firstName: "",
-      lastName: "",
-      password:"",
-      subscriptions : []
-    };
-
-    currentUser: UserDTO = this.emptyUser;
-    userExist: boolean = false;
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute){}ngOnInit(): void {
-    this.userService.getAllSubscriptions().subscribe(res => {
-      this.userService.allSubscriptions = res;
-      this.currentUser = this.emptyUser;
-    })
+  emptyUser: UserDTO = {
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    subscriptions: [],
   };
 
+  currentUser: UserDTO = this.emptyUser;
+  userExist: boolean = false;
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private localStorage: LocalStorageService
+  ) {}
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.userService.getAllSubscriptions().subscribe((res) => {
+  //     this.userService.allSubscriptions = res;
+  //     this.currentUser = this.emptyUser;
+  //     if (this.localStorage.getItem('loggedInUser') === null) {
+  //       this.userExist = false;
+  //     } else {
+  //       this.userExist = true;
+  //     }
+  //   });
+  // }
+  ngOnInit(): void {
+    this.userService.getAllSubscriptions().subscribe((res) => {
+      this.userService.allSubscriptions = res;
+      this.currentUser = this.emptyUser;
+      if (this.localStorage.getItem('loggedInUser') === null) {
+        this.userExist = false;
+      } else {
+        this.userExist = true;
+      }
+    });
+  }
+
   handleClick() {
-    this.router.navigate(['/landing', this.currentUser, this.userExist])
+    this.router.navigate(['/landing', this.currentUser, this.userExist]);
     this.userService.loggedInUser = this.emptyUser;
     this.currentUser = this.emptyUser;
   }

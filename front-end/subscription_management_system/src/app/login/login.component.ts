@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
+import { LocalStorageService } from '../local-storage.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -34,7 +35,7 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 })
 export class LoginComponent {
   constructor(private userService: UserService, private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router, private localStorage: LocalStorageService) {}
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -56,6 +57,7 @@ export class LoginComponent {
         if(response.status == 1){  
           this.userDTO = response.userDTO;
           this.userService.loggedInUser = this.userDTO;
+          this.localStorage.setItem('loggedInUser', JSON.stringify(this.userDTO))
           this.currentUser = this.userDTO;
           this.userExist = true;
           this.userService.activeSubscription = response.userDTO.subscriptions;
