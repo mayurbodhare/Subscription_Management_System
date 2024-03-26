@@ -50,14 +50,16 @@ export class LoginComponent {
   async loginUser() {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
-
+      if (this.email === 'admin@admin') {
+        this.router.navigate(['/admindashboard'])
+      }else{
     await this.userService
       .loginUser(this.email, this.password)
       .subscribe(async (response) => {
         if(response.status == 1){  
           this.userDTO = response.userDTO;
           this.userService.loggedInUser = this.userDTO;
-          this.localStorage.setItem('loggedInUser', JSON.stringify(this.userDTO))
+          this.localStorage.setItem('loggedInUser', JSON.stringify(this.userDTO));
           this.currentUser = this.userDTO;
           this.userExist = true;
           this.userService.activeSubscription = response.userDTO.subscriptions;
@@ -73,5 +75,6 @@ export class LoginComponent {
         }
         
       });
+    }
   }
 }

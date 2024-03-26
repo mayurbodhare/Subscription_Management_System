@@ -13,6 +13,8 @@ import { UserService } from '../services/user.service';
 import { MatButton } from '@angular/material/button';
 import { UserDTO } from '../interface/userDTO';
 import { LocalStorageService } from './local-storage.service';
+import { map, Observable } from 'rxjs';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -30,9 +32,10 @@ import { LocalStorageService } from './local-storage.service';
     MatIcon,
     MatToolbar,
     MatButton,
+    AsyncPipe
   ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
   title = 'subscription_management_system';
   emptyUser: UserDTO = {
     email: '',
@@ -43,39 +46,36 @@ export class AppComponent implements OnInit {
   };
 
   currentUser: UserDTO = this.emptyUser;
-  userExist: boolean = false;
+  // userExist: boolean = false;
+  userExist$!: Observable<boolean>; // Observable to track user existence
+
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
     private localStorage: LocalStorageService
   ) {}
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   this.userService.getAllSubscriptions().subscribe((res) => {
-  //     this.userService.allSubscriptions = res;
-  //     this.currentUser = this.emptyUser;
-  //     if (this.localStorage.getItem('loggedInUser') === null) {
-  //       this.userExist = false;
-  //     } else {
-  //       this.userExist = true;
-  //     }
-  //   });
-  // }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.userExist$ = this.localStorage.loggedInUser$.pipe(
+      map(user => user !== null)
+    );
+  }
   ngOnInit(): void {
     this.userService.getAllSubscriptions().subscribe((res) => {
       this.userService.allSubscriptions = res;
+      this.localStorage.setItem('allSubscriptions', JSON.stringify(res));
       this.currentUser = this.emptyUser;
-      if (this.localStorage.getItem('loggedInUser') === null) {
-        this.userExist = false;
-      } else {
-        this.userExist = true;
-      }
+      this.userExist$ = this.localStorage.loggedInUser$.pipe(
+        map(user => user !== null)
+      );
     });
   }
 
   handleClick() {
-    this.router.navigate(['/landing', this.currentUser, this.userExist]);
     this.userService.loggedInUser = this.emptyUser;
     this.currentUser = this.emptyUser;
+    this.localStorage.clearLoggedInUser();
+    this.router.navigate(['/landing', this.currentUser, this.userExist$]);
   }
 }

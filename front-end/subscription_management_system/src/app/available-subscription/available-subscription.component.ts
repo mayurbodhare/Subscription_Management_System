@@ -16,6 +16,7 @@ import { PlanDTO } from '../../interface/PlanDTO';
 import { DateFormatPipe } from '../date-format.pipe';
 import { PaymentComponent } from '../payment/payment.component';
 import { ActiveSubscriptionDTO } from '../../interface/ActiveSubscriptionDTO';
+import { LocalStorageService } from '../local-storage.service';
 
 class RelationDTOImpl implements RelationDTO {
   constructor(
@@ -44,9 +45,9 @@ class RelationDTOImpl implements RelationDTO {
   styleUrl: './available-subscription.component.css'
 })
 export class AvailableSubscriptionComponent implements OnInit {
-  constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe) {}
+  constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe, private localStorage:LocalStorageService) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
-  allSubscriptions: SubscriptionDTO[] = this.userService.availableSubscription;
+  allSubscriptions: SubscriptionDTO[] = JSON.parse(this.localStorage.getItem('allSubscriptions') || 'null');
   activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
   relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
   errorMessage = '';
