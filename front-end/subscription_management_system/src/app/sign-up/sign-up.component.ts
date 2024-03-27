@@ -63,6 +63,8 @@ export class SignUpComponent {
         this.currentUser = this.userDTO;
         this.userExist = true;
         this.userDTO.password = '';
+        this.userService.transformSubscription();
+        this.userService.loggedInUser.subscriptions = []
         this.router.navigate(['/dashboard']);
       }
       else{

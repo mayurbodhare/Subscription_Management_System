@@ -7,6 +7,10 @@ import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { AvailableSubscriptionComponent } from "../available-subscription/available-subscription.component";
 import { ActiveSubscriptionsComponent } from "../active-subscriptions/active-subscriptions.component";
 import { UserService } from "../../services/user.service";
+import { UserDTO } from "../../interface/userDTO";
+import { SubscriptionDTO } from "../../interface/subscriptionDTO";
+import { ActiveSubscriptionDTO } from "../../interface/ActiveSubscriptionDTO";
+import { FormsModule, NgModel } from "@angular/forms";
 
 
 @Component({
@@ -26,13 +30,19 @@ import { UserService } from "../../services/user.service";
     MatTab,
     MatTabGroup,
     AvailableSubscriptionComponent,
-    ActiveSubscriptionsComponent
+    ActiveSubscriptionsComponent,
+    FormsModule
   ],
 })
 
 
 
 export class DashboardComponent implements OnInit {
+  
+  loggedInUser: UserDTO = this.userService.loggedInUser;
+  activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
+
+  
   constructor(private userService: UserService){}
   ngOnInit(): void {
     console.log(this.userService.allSubscriptions);
@@ -40,6 +50,8 @@ export class DashboardComponent implements OnInit {
     console.log(this.userService.activeSubscription);
   }
 
-
+  handleChange(newActiveSubscription:ActiveSubscriptionDTO[]){
+    this.activeSubscriptions = newActiveSubscription;
+  }
  
 }
