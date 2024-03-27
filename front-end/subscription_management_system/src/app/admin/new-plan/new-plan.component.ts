@@ -14,6 +14,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-plan',
@@ -46,7 +47,8 @@ export class NewPlanComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -85,6 +87,7 @@ export class NewPlanComponent implements OnInit {
         })
         .subscribe((response: any) => {
           console.log(response);
+          this.toastr.success('Plan added successfully!');
           this.router.navigate(['/admindashboard'])
         });
     }

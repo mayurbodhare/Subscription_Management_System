@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { SubscriptionDTO } from '../../../interface/subscriptionDTO';
 import { Router } from '@angular/router';
 import { AdminService } from '../../../services/admin.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-new-subscription',
@@ -44,7 +45,8 @@ export class AddNewSubscriptionComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private toastr: ToastrService
   ) {}
   ngOnInit(): void {
     this.newPlanForm = this.formBuilder.group({
@@ -83,6 +85,7 @@ export class AddNewSubscriptionComponent implements OnInit {
         .createSubscription(this.subscription)
         .subscribe((response) => {
           console.log(response);
+          this.toastr.success('Subscription added successfully!');
           this.router.navigate(['/admindashboard']);
         });
     }
