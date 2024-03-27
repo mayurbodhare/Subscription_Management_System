@@ -1,4 +1,4 @@
-import { Component, Input, input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, input, OnInit, Output } from '@angular/core';
 import { SubscriptionDTO } from '../../interface/subscriptionDTO';
 import { CardComponent } from '../card/card.component';
 import { UserService } from '../../services/user.service';
@@ -46,9 +46,11 @@ class RelationDTOImpl implements RelationDTO {
 })
 export class AvailableSubscriptionComponent implements OnInit {
   constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe, private localStorage:LocalStorageService) {}
-  loggedInUser: UserDTO = this.userService.loggedInUser;
+  @Input() loggedInUser: UserDTO = this.userService.loggedInUser;
+  @Input() @Output() activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
+  @Output() activeSubscriptionChange:EventEmitter<ActiveSubscriptionDTO[]> = new EventEmitter<ActiveSubscriptionDTO[]>;
+  
   allSubscriptions: SubscriptionDTO[] = this.userService.availableSubscription //JSON.parse(this.localStorage.getItem('allSubscriptions') || 'null');
-  activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
   relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
   errorMessage = '';
   amount = 0;
@@ -91,17 +93,19 @@ export class AvailableSubscriptionComponent implements OnInit {
     this.amount = 0;
   }
 
-  buySubscription(subscription:SubscriptionDTO ,plan:PlanDTO) {
+  async buySubscription(subscription:SubscriptionDTO ,plan:PlanDTO) {
     this.amount = 0;
     this.relationDTO.emailId = this.loggedInUser.email;
     this.relationDTO.subscriptionEntity = subscription;
     this.relationDTO.planEntity = plan;
     this.relationDTO.startDate = this.dateFormatPipe.transform(new Date());
     if (this.upgrade) {
-      this.userService.upgradeSubscription(this.relationDTO).subscribe((response) => {
+      await this.userService.upgradeSubscription(this.relationDTO).subscribe((response) => {
         console.log(response);
         if(response.status === 1){
-          this.userService.activeSubscription = response.userDTO.subscriptions;
+          this.userService.activeSubscription =  response.userDTO.subscriptions;
+          this.activeSubscriptions = response.userDTO.subscriptions;
+          this.activeSubscriptionChange.emit(this.activeSubscriptions);
           this.errorMessage = response.message;
             setTimeout(() => {
               this.errorMessage = '';
@@ -114,10 +118,12 @@ export class AvailableSubscriptionComponent implements OnInit {
         }
       })
     } else {
-      this.userService.buySubscription(this.relationDTO).subscribe((response) => {
+      await this.userService.buySubscription(this.relationDTO).subscribe((response) => {
         console.log(response);
         if(response.status === 1){
-          this.userService.activeSubscription = response.userDTO.subscriptions;
+          this.userService.activeSubscription =  response.userDTO.subscriptions;
+          this.activeSubscriptions = response.userDTO.subscriptions;
+          this.activeSubscriptionChange.emit(this.activeSubscriptions);
           this.errorMessage = response.message;
             setTimeout(() => {
               this.errorMessage = '';
