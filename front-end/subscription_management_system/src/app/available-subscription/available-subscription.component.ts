@@ -47,7 +47,7 @@ class RelationDTOImpl implements RelationDTO {
 export class AvailableSubscriptionComponent implements OnInit {
   constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe, private localStorage:LocalStorageService) {}
   loggedInUser: UserDTO = this.userService.loggedInUser;
-  allSubscriptions: SubscriptionDTO[] = JSON.parse(this.localStorage.getItem('allSubscriptions') || 'null');
+  allSubscriptions: SubscriptionDTO[] = this.userService.availableSubscription //JSON.parse(this.localStorage.getItem('allSubscriptions') || 'null');
   activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
   relationDTO:RelationDTO = new RelationDTOImpl('', '', '', null, null);;
   errorMessage = '';
