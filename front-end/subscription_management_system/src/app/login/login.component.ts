@@ -55,6 +55,7 @@ export class LoginComponent {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
     if (this.email === 'admin@admin') {
+      this.userService.isLoggedInSubject.next(true);
       this.router.navigate(['/admindashboard']);
     } else {
       await this.userService

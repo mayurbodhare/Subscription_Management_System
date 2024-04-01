@@ -4,7 +4,7 @@
         <!-- @if (userExist$ | async) {
             <button mat-raised-button (click)="handleClick()">Logout</button>
         } -->
-        <button button mat-raised-button color="primary" *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+        <button button mat-raised-button color="basic" *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
     </mat-toolbar>
 </p>
 <router-outlet></router-outlet>
