@@ -23,18 +23,18 @@ export class AdminDashboardComponent implements OnInit {
   subscriptions: SubscriptionDTO[] = [];
   editable: boolean = true;
   selectedPlan: PlanDTO | null = null;
-
+  
   constructor(private adminService: AdminService, private router: Router) {}
-
+  
   ngOnInit(): void {
     this.adminService
-      .getAllSubscription()
-      .subscribe((response: SubscriptionDTO[]) => {
-        console.log(response);
-        this.subscriptions = response;
-      });
+    .getAllSubscription()
+    .subscribe((response: SubscriptionDTO[]) => {
+      console.log(response);
+      this.subscriptions = response;
+    });
   }
-
+  
   buyEvent(subscriptionId: number, subscriptionName: string, plan: PlanDTO) {
     this.router.navigate(['/planform'], {
       queryParams: {
@@ -44,7 +44,7 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
-
+  
   addNewPlan(subscriptionId: number, subscriptionName: string) {
     this.router.navigate(['/newplan'], {
       queryParams: {
@@ -55,5 +55,9 @@ export class AdminDashboardComponent implements OnInit {
   }
   addNewSubscription(){
     this.router.navigate(['/newsubscription'])
+  }
+
+  logOut() {
+  this.router.navigate(['/landing'])
   }
 }

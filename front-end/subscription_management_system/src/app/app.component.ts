@@ -14,7 +14,8 @@ import { MatButton } from '@angular/material/button';
 import { UserDTO } from '../interface/userDTO';
 import { LocalStorageService } from './local-storage.service';
 import { map, Observable } from 'rxjs';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -32,7 +33,9 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
     MatIcon,
     MatToolbar,
     MatButton,
-    AsyncPipe
+    AsyncPipe,
+    CommonModule,
+    FormsModule,
   ],
 })
 export class AppComponent implements OnInit, OnChanges {
@@ -58,7 +61,7 @@ export class AppComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userExist$ = this.localStorage.loggedInUser$.pipe(
-      map(user => user !== null)
+      map((user) => user !== null)
     );
   }
   ngOnInit(): void {
@@ -67,7 +70,7 @@ export class AppComponent implements OnInit, OnChanges {
       this.localStorage.setItem('allSubscriptions', JSON.stringify(res));
       this.currentUser = this.emptyUser;
       this.userExist$ = this.localStorage.loggedInUser$.pipe(
-        map(user => user !== null)
+        map((user) => user !== null)
       );
     });
   }
@@ -77,5 +80,15 @@ export class AppComponent implements OnInit, OnChanges {
     this.currentUser = this.emptyUser;
     this.localStorage.clearLoggedInUser();
     this.router.navigate(['/landing', this.currentUser, this.userExist$]);
+  }
+
+  logout() {
+    this.userService.logout(); 
+    this.currentUser = this.emptyUser; 
+    this.localStorage.clear();
+    this.router.navigate(['/landing']);
+  }
+  isLoggedIn(): boolean {
+    return this.userService.isLoggedIn();
   }
 }

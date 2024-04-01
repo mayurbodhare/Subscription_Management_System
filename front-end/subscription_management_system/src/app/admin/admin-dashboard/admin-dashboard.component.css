@@ -1,14 +1,22 @@
 .add-subscription-container {
   display: flex;
-  justify-content: flex-end; 
+  justify-content: space-between;
   margin-bottom: 20px;
+  padding: 10px;
 }
-.new-subscription{
+
+.new-subscription {
   margin-bottom: 10px;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
 .subscription-card {
-  width: calc(100% - 32px); 
+  width: calc(100% - 32px);
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 1px 1px 3px 3px rgba(0, 0, 0, 0.1);

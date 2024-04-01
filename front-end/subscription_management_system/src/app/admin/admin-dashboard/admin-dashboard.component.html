@@ -1,7 +1,11 @@
 <ng-container class="add-subscription-container">
-    <button mat-raised-button class="new-subscription" color="primary" (click)="addNewSubscription()">Add New
-        Subscription</button>
+    <div class="button-container">
+        <button mat-raised-button class="new-subscription" color="primary" (click)="addNewSubscription()">Add New
+            Subscription</button>
+        <button mat-raised-button class="new-subscription" color="primary" (click)="logOut()">Logout</button>
+    </div>
 </ng-container>
+
 <ng-container *ngFor="let subscription of subscriptions">
     <mat-card class="subscription-card" raised>
         <div class="header">
