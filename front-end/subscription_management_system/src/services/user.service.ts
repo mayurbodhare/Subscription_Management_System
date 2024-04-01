@@ -13,7 +13,7 @@ import { AvailableSubscriptionComponent } from '../app/available-subscription/av
   providedIn: 'root',
 })
 export class UserService {
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
   loginResponse: any;
   loggedInUser!: UserDTO;

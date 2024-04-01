@@ -25,15 +25,17 @@ import { ActivatedRoute, Router } from '@angular/router';
     MatIconModule,
     MatButtonModule,
     MatCard,
-    MatCardContent
+    MatCardContent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
 })
 export class SignUpComponent {
-  
-  constructor(private userService: UserService,  private route: ActivatedRoute,
-    private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -56,7 +58,7 @@ export class SignUpComponent {
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
     this.userService.signUpUser(this.userDTO).subscribe((res) => {
       console.log(res);
-      if(res.status === 1){
+      if (res.status === 1) {
         this.userDTO = res.userDTO;
         console.log(this.userDTO);
         this.userService.loggedInUser = this.userDTO;
@@ -64,16 +66,15 @@ export class SignUpComponent {
         this.userExist = true;
         this.userDTO.password = '';
         this.userService.transformSubscription();
-        this.userService.loggedInUser.subscriptions = []
+        this.userService.loggedInUser.subscriptions = [];
         this.router.navigate(['/dashboard']);
-      }
-      else{
+      } else {
         this.errorMessage = res.message;
-          setTimeout(() => {
-            this.errorMessage = '';
-          }, 2000)
+        this.userService.isLoggedInSubject.next(false);
+        setTimeout(() => {
+          this.errorMessage = '';
+        }, 2000);
       }
-      
     });
   }
 }

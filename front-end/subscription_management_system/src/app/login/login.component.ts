@@ -28,14 +28,18 @@ import { LocalStorageService } from '../local-storage.service';
     MatIconModule,
     MatButtonModule,
     MatCard,
-    MatCardContent
+    MatCardContent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(private userService: UserService, private route: ActivatedRoute,
-    private router: Router, private localStorage: LocalStorageService) {}
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private localStorage: LocalStorageService
+  ) {}
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -50,31 +54,34 @@ export class LoginComponent {
   async loginUser() {
     this.email =
       this.emailFormControl.value !== null ? this.emailFormControl.value : '';
-      if (this.email === 'admin@admin') {
-        this.router.navigate(['/admindashboard'])
-      }else{
-    await this.userService
-      .loginUser(this.email, this.password)
-      .subscribe(async (response) => {
-        if(response.status == 1){  
-          this.userDTO = response.userDTO;
-          this.userService.loggedInUser = this.userDTO;
-          this.localStorage.setItem('loggedInUser', JSON.stringify(this.userDTO));
-          this.currentUser = this.userDTO;
-          this.userExist = true;
-          this.userService.activeSubscription = response.userDTO.subscriptions;
-          await this.userService.transformSubscription();
-          // setTimeout(() => {}, 2000)
-          this.router.navigate(['/dashboard']);
-        }
-        else{
-          this.errorMessage = response.message;
-          setTimeout(() => {
-            this.errorMessage = '';
-          }, 2000)
-        }
-        
-      });
+    if (this.email === 'admin@admin') {
+      this.router.navigate(['/admindashboard']);
+    } else {
+      await this.userService
+        .loginUser(this.email, this.password)
+        .subscribe(async (response) => {
+          if (response.status == 1) {
+            this.userDTO = response.userDTO;
+            this.userService.loggedInUser = this.userDTO;
+            this.localStorage.setItem(
+              'loggedInUser',
+              JSON.stringify(this.userDTO)
+            );
+            this.currentUser = this.userDTO;
+            this.userExist = true;
+            this.userService.activeSubscription =
+              response.userDTO.subscriptions;
+            await this.userService.transformSubscription();
+            // setTimeout(() => {}, 2000)
+            this.router.navigate(['/dashboard']);
+          } else {
+            this.errorMessage = response.message;
+            this.userService.isLoggedInSubject.next(false);
+            setTimeout(() => {
+              this.errorMessage = '';
+            }, 2000);
+          }
+        });
     }
   }
 }
