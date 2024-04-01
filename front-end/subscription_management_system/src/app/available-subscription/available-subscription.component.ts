@@ -17,7 +17,7 @@ import { DateFormatPipe } from '../date-format.pipe';
 import { PaymentComponent } from '../payment/payment.component';
 import { ActiveSubscriptionDTO } from '../../interface/ActiveSubscriptionDTO';
 import { LocalStorageService } from '../local-storage.service';
-
+import { List } from 'immutable';
 class RelationDTOImpl implements RelationDTO {
   constructor(
     public emailId: string,
@@ -47,7 +47,7 @@ class RelationDTOImpl implements RelationDTO {
 export class AvailableSubscriptionComponent implements OnInit {
   constructor(private userService: UserService, private dateFormatPipe: DateFormatPipe, private localStorage:LocalStorageService) {}
   @Input() loggedInUser: UserDTO = this.userService.loggedInUser;
-  @Input() @Output() activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
+  @Input() activeSubscriptions = List<ActiveSubscriptionDTO>(this.userService.activeSubscription);
   @Output() activeSubscriptionChange:EventEmitter<ActiveSubscriptionDTO[]> = new EventEmitter<ActiveSubscriptionDTO[]>;
   
   allSubscriptions: SubscriptionDTO[] = this.userService.availableSubscription //JSON.parse(this.localStorage.getItem('allSubscriptions') || 'null');
@@ -104,8 +104,8 @@ export class AvailableSubscriptionComponent implements OnInit {
         console.log(response);
         if(response.status === 1){
           this.userService.activeSubscription =  response.userDTO.subscriptions;
-          this.activeSubscriptions = response.userDTO.subscriptions;
-          this.activeSubscriptionChange.emit(this.activeSubscriptions);
+          this.activeSubscriptions = List(response.userDTO.subscriptions);
+          this.activeSubscriptionChange.emit(this.activeSubscriptions.toArray());
           this.errorMessage = response.message;
             setTimeout(() => {
               this.errorMessage = '';
@@ -122,8 +122,8 @@ export class AvailableSubscriptionComponent implements OnInit {
         console.log(response);
         if(response.status === 1){
           this.userService.activeSubscription =  response.userDTO.subscriptions;
-          this.activeSubscriptions = response.userDTO.subscriptions;
-          this.activeSubscriptionChange.emit(this.activeSubscriptions);
+          this.activeSubscriptions = List(response.userDTO.subscriptions);
+          this.activeSubscriptionChange.emit(this.activeSubscriptions.toArray());
           this.errorMessage = response.message;
             setTimeout(() => {
               this.errorMessage = '';

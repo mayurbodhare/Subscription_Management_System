@@ -16,6 +16,7 @@ import { RelationDTO } from '../../interface/RelationDTO';
 import { PlanDTO } from '../../interface/PlanDTO';
 import { DateFormatPipe } from '../date-format.pipe';
 import { ActivatedRoute, Router } from '@angular/router';
+import { List } from 'immutable';
 
 class RelationDTOImpl implements RelationDTO {
   constructor(
@@ -56,14 +57,14 @@ export class ActiveSubscriptionsComponent implements OnInit, OnChanges , DoCheck
  
 
   @Input() loggedInUser: UserDTO = this.userService.loggedInUser;
-  @Input() activeSubscriptions!: ActiveSubscriptionDTO[] // = this.userService.activeSubscription;
+  @Input() activeSubscriptions!: List<ActiveSubscriptionDTO> // = this.userService.activeSubscription;
   
 
   relationDTO: RelationDTO = new RelationDTOImpl('', '', '', null, null);;
   errorMessage = '';
     
   ngDoCheck(): void {
-    if (this.activeSubscriptions !== this.userService.activeSubscription) {
+    if (this.activeSubscriptions.toArray() !== this.userService.activeSubscription) {
       console.log(this.userService.activeSubscription);
       // this.activeSubscriptions = this.userService.activeSubscription;
       // ActiveSubscriptionsComponent.apply()
@@ -78,7 +79,7 @@ export class ActiveSubscriptionsComponent implements OnInit, OnChanges , DoCheck
   ngOnInit(): void {
     console.log(this.userService.loggedInUser);
     this.userService.getActiveSubscriptions().subscribe((res) => {
-      this.activeSubscriptions = res;
+      this.activeSubscriptions = List(res);
       this.userService.activeSubscription = res;
       this.cdr.detectChanges(); // Detect changes after updating activeSubscriptions
     });
@@ -98,7 +99,7 @@ export class ActiveSubscriptionsComponent implements OnInit, OnChanges , DoCheck
       console.log(response);
       if (response.status === 1) {
         this.userService.activeSubscription = response.userDTO.subscriptions;
-        this.activeSubscriptions = response.userDTO.subscriptions;
+        this.activeSubscriptions = List(response.userDTO.subscriptions);
         this.errorMessage = response.message;
         setTimeout(() => {
           this.errorMessage = '';

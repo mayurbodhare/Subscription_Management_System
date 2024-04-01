@@ -11,7 +11,7 @@ import { UserDTO } from "../../interface/userDTO";
 import { SubscriptionDTO } from "../../interface/subscriptionDTO";
 import { ActiveSubscriptionDTO } from "../../interface/ActiveSubscriptionDTO";
 import { FormsModule, NgModel } from "@angular/forms";
-
+import { List } from 'immutable'
 
 @Component({
   selector: 'app-dashboard',
@@ -40,7 +40,7 @@ import { FormsModule, NgModel } from "@angular/forms";
 export class DashboardComponent implements OnInit {
   
   loggedInUser: UserDTO = this.userService.loggedInUser;
-  activeSubscriptions : ActiveSubscriptionDTO[] = this.userService.activeSubscription;
+  activeSubscriptions = List<ActiveSubscriptionDTO>(this.userService.activeSubscription);
 
   
   constructor(private userService: UserService){}
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit {
   }
 
   handleChange(newActiveSubscription:ActiveSubscriptionDTO[]){
-    this.activeSubscriptions = newActiveSubscription;
+    this.activeSubscriptions = List(newActiveSubscription);
   }
  
 }
